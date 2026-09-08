@@ -1,5 +1,7 @@
 async function loadBoardData() {
-  const response = await fetch("content/site-data.json");
+  const response = await fetch("content/site-data.json?v=20260908-2", {
+    cache: "no-store",
+  });
   if (!response.ok) {
     throw new Error("게시판 데이터를 불러오지 못했습니다.");
   }

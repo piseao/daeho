@@ -272,6 +272,7 @@ h1 {
 .boards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: 52px;
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
@@ -279,6 +280,8 @@ h1 {
 }
 
 .board {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
@@ -316,6 +319,16 @@ h1 {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.board .post-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.board .post-item {
+  flex: 1;
 }
 
 .post-item {
