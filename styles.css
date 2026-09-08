@@ -289,27 +289,11 @@ h1 {
   margin-bottom: 26px;
 }
 
-.board-head > a,
-.board-action {
+.board-head > a {
   align-self: start;
   border-bottom: 1px solid var(--ink);
   color: var(--muted);
   font-size: 15px;
-}
-
-.board-link {
-  display: block;
-}
-
-.board-link:hover h2,
-.board-link:focus-visible h2 {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
-.board-link:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 8px;
 }
 
 .post-list,
