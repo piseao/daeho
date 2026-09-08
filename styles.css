@@ -21,7 +21,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  font-family: "NanumBarunGothic", "나눔바른고딕", sans-serif;
   line-height: 1.65;
 }
 
@@ -70,7 +70,7 @@ a {
   height: 38px;
   place-items: center;
   border: 1px solid rgba(255, 250, 242, 0.6);
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-size: 20px;
 }
 
@@ -150,7 +150,7 @@ p {
 
 h1 {
   margin-bottom: 28px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(60px, 10vw, 132px);
   line-height: 0.96;
   font-weight: 500;
@@ -209,7 +209,7 @@ h1 {
 .statement p {
   width: min(920px, 100%);
   margin: 0 0 24px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(30px, 5vw, 72px);
   line-height: 1.16;
   word-break: keep-all;
