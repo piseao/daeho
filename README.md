@@ -9,6 +9,7 @@ So Do Not Fear 예배팀 홈페이지입니다.
 - `script.js`: 게시판 데이터 표시
 - `content/site-data.json`: 기도제목, 공지사항, 스토리 데이터
 - `assets/hero-worship.png`: 첫 화면 이미지
+- `docs/SITE_OPERATIONS.md`: 운영 원칙, 보안 기준, 다른 환경에서 작업하는 방법
 
 ## GitHub Pages
 
