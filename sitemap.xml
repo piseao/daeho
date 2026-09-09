@@ -1,48 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sodonotfear.com/</loc>
     <lastmod>2026-09-09</lastmod>
-    <image:image>
-      <image:loc>https://sodonotfear.com/assets/hero-worship.png</image:loc>
-      <image:title>So Do Not Fear 예배 공동체</image:title>
-    </image:image>
-    <video:video>
-      <video:thumbnail_loc>https://i.ytimg.com/vi/jvVQqoKlxi8/maxresdefault.jpg</video:thumbnail_loc>
-      <video:title>이것이 복음이요, 이것이 그리스도인을 만듭니다 | 마틴 로이드 존스</video:title>
-      <video:description>So Do Not Fear 홈페이지에서 함께 보는 복음 메시지 영상입니다.</video:description>
-      <video:player_loc allow_embed="yes">https://www.youtube.com/embed/jvVQqoKlxi8</video:player_loc>
-      <video:duration>177</video:duration>
-      <video:publication_date>2023-05-15T18:09:36-07:00</video:publication_date>
-      <video:uploader info="https://www.youtube.com/watch?v=jvVQqoKlxi8">거인들의 설교</video:uploader>
-    </video:video>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns.html</loc>
-    <lastmod>2026-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns/gospel-is-good-news.html</loc>
-    <lastmod>2026-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns/standing-before-the-word.html</loc>
-    <lastmod>2026-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns/one-story-of-the-bible.html</loc>
-    <lastmod>2026-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns/grace-is-not-cheap-comfort.html</loc>
-    <lastmod>2026-09-09</lastmod>
-  </url>
-  <url>
-    <loc>https://sodonotfear.com/columns/hope-before-death.html</loc>
-    <lastmod>2026-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 </urlset>
