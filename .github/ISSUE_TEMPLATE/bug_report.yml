@@ -1,0 +1,46 @@
+name: 오류 신고
+description: 홈페이지 화면, 링크 또는 기능의 오류를 알려 주세요.
+title: "[오류] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        신고해 주셔서 감사합니다. 비밀번호, API 키, 개인정보와 비공개 기도제목은 작성하지 마세요.
+  - type: input
+    id: page
+    attributes:
+      label: 문제가 발생한 주소
+      placeholder: https://sodonotfear.com/
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 문제 설명
+      description: 기대한 결과와 실제 결과를 함께 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 재현 방법
+      placeholder: |
+        1. 홈페이지에 접속합니다.
+        2. 메뉴를 누릅니다.
+        3. 오류가 나타납니다.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 사용 환경
+      placeholder: 예) iPhone Safari, Windows Chrome
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 공개 정보 확인
+      options:
+        - label: 이 Issue에 비밀정보, 개인정보와 비공개 콘텐츠를 포함하지 않았습니다.
+          required: true

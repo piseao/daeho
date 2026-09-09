@@ -1,0 +1,38 @@
+name: 도움 요청
+description: 홈페이지 제작, 배포 또는 운영 방법을 질문해 주세요.
+title: "[도움] "
+labels:
+  - question
+body:
+  - type: checkboxes
+    id: manual
+    attributes:
+      label: 문서 확인
+      options:
+        - label: 홈페이지 제작 매뉴얼과 운영문서를 먼저 확인했습니다.
+          required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: 하려는 작업
+      description: 최종적으로 만들고 싶은 결과를 설명해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: 시도한 방법과 막힌 지점
+    validations:
+      required: true
+  - type: textarea
+    id: public_context
+    attributes:
+      label: 공개 가능한 참고 정보
+      description: 공개 저장소 주소나 오류 메시지를 적을 수 있습니다. 비밀키와 개인정보는 제거해 주세요.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 공개 정보 확인
+      options:
+        - label: 비밀번호, API 키, 개인정보와 비공개 기도제목을 포함하지 않았습니다.
+          required: true

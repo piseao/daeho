@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 홈페이지 제작 매뉴얼
+    url: https://github.com/piseao/daeho/blob/main/docs/HOMEPAGE_BUILD_MANUAL.md
+    about: Issue를 만들기 전에 제작과 운영 방법을 먼저 확인해 주세요.
+  - name: 민감한 보안 문제 안내
+    url: https://github.com/piseao/daeho/blob/main/SECURITY.md
+    about: 비밀번호, API 키와 개인정보는 공개 Issue에 작성하지 마세요.

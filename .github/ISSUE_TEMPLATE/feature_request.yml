@@ -1,0 +1,33 @@
+name: 기능·개선 제안
+description: 홈페이지 또는 제작 문서의 개선점을 제안해 주세요.
+title: "[제안] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: 어떤 필요가 있나요?
+      description: 기능 이름보다 해결하려는 문제를 먼저 설명해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안하는 방법
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: 누구에게 도움이 되나요?
+      placeholder: 예) 홈페이지 담당자가 없는 개척교회
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 확인사항
+      options:
+        - label: 기존 Issue에 같은 제안이 있는지 확인했습니다.
+          required: true
+        - label: 개인정보나 라이선스가 불분명한 자료를 포함하지 않았습니다.
+          required: true
