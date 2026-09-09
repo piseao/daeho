@@ -10,6 +10,8 @@ So Do Not Fear 예배팀 홈페이지입니다.
 - `content/site-data.json`: 기도제목, 공지사항, 스토리 데이터
 - `assets/hero-worship.png`: 첫 화면 이미지
 - `docs/SITE_OPERATIONS.md`: 운영 원칙, 보안 기준, 다른 환경에서 작업하는 방법
+- `docs/SEARCH_REGISTRATION.md`: 검색엔진 등록과 SEO·AEO·GEO 운영 방법
+- `llms.txt`: AI 시스템을 위한 공개 핵심 정보 요약
 
 ## GitHub Pages
 
