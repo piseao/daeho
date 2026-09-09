@@ -11,6 +11,8 @@ So Do Not Fear 예배팀 홈페이지입니다.
 - `assets/hero-worship.png`: 첫 화면 이미지
 - `docs/SITE_OPERATIONS.md`: 운영 원칙, 보안 기준, 다른 환경에서 작업하는 방법
 - `docs/SEARCH_REGISTRATION.md`: 검색 등록, 메타 태그와 향후 칼럼 운영 원칙
+- `docs/PROJECT_VISION.md`: 프로젝트 취지, 대상과 신앙·운영 방향
+- `docs/HOMEPAGE_BUILD_MANUAL.md`: 개척교회와 소규모 공동체를 위한 전체 제작 매뉴얼
 
 ## GitHub Pages
 
