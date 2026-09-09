@@ -16,7 +16,7 @@ So Do Not Fear 예배팀 홈페이지입니다.
 저장소 Settings > Pages에서 `main` 브랜치를 배포 대상으로 설정하면 아래 주소로 확인할 수 있습니다.
 
 ```text
-https://piseao.github.io/daeho/
+https://sodonotfear.com/
 ```
 
-도메인을 연결하면 `CNAME` 파일에 도메인을 추가하고, DNS를 GitHub Pages로 연결하면 됩니다.
+기본 GitHub Pages 주소는 `https://piseao.github.io/daeho/`입니다.

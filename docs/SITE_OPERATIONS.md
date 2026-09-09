@@ -5,7 +5,8 @@
 이 홈페이지는 교회·선교단체·예배팀의 공개 정보 전달을 위한 정적 홈페이지로 운영한다.
 
 - 홈페이지: GitHub Pages
-- 배포 주소: https://piseao.github.io/daeho/
+- 배포 주소: https://sodonotfear.com/
+- 기본 GitHub Pages 주소: https://piseao.github.io/daeho/
 - 원본 저장소: https://github.com/piseao/daeho
 - 배포 방식: `main` 브랜치에 push하면 GitHub Pages에 자동 반영
 
@@ -45,7 +46,8 @@
 ### 홈페이지와 저장소
 
 - 방문자는 GitHub Pages 홈페이지를 보고, 작업자는 GitHub 저장소를 수정한다.
-- 현재 홈페이지 주소는 `https://piseao.github.io/daeho/`이며 `/daeho/`까지 포함해야 한다.
+- 공식 홈페이지 주소는 `https://sodonotfear.com/`이다.
+- 기본 GitHub Pages 주소는 `https://piseao.github.io/daeho/`이며 `/daeho/`까지 포함한다.
 - `main` 브랜치에 반영된 공개 파일이 GitHub Pages를 통해 배포된다.
 - 저장소를 비공개로 바꾸면 계정 요금제와 Pages 설정에 따라 홈페이지 배포가 중단될 수 있다.
 - 공개 홈페이지의 HTML, CSS, JavaScript, 이미지는 방문자가 기술적으로 내려받을 수 있다.
