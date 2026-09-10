@@ -47,8 +47,45 @@ function renderBoards(data) {
   });
 }
 
+function setupHeroVideo() {
+  const iframe = document.querySelector(".hero-video");
+  if (!iframe || !window.YT?.Player) return;
+
+  new window.YT.Player(iframe, {
+    events: {
+      onReady(event) {
+        event.target.mute();
+        event.target.playVideo();
+      },
+      onStateChange(event) {
+        const playerFrame = event.target.getIframe();
+        playerFrame.classList.toggle(
+          "is-playing",
+          event.data === window.YT.PlayerState.PLAYING,
+        );
+      },
+      onError(event) {
+        event.target.getIframe().classList.remove("is-playing");
+      },
+    },
+  });
+}
+
+function loadHeroVideo() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  window.onYouTubeIframeAPIReady = setupHeroVideo;
+
+  const apiScript = document.createElement("script");
+  apiScript.src = "https://www.youtube.com/iframe_api";
+  apiScript.async = true;
+  document.head.append(apiScript);
+}
+
 loadBoardData()
   .then(renderBoards)
   .catch((error) => {
     console.error(error);
   });
+
+loadHeroVideo();
