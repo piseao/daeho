@@ -14,6 +14,8 @@ So Do Not Fear 예배팀 홈페이지입니다.
 - `docs/SEARCH_REGISTRATION.md`: 검색 등록, 메타 태그와 향후 칼럼 운영 원칙
 - `docs/PROJECT_VISION.md`: 프로젝트 취지, 대상과 신앙·운영 방향
 - `docs/HOMEPAGE_BUILD_MANUAL.md`: 개척교회와 소규모 공동체를 위한 전체 제작 매뉴얼
+- `docs/YOUTUBE_COURSE_PLAN.md`: 무료 홈페이지 제작 YouTube 강의·Shorts 기획안
+- `docs/AI_IT_MISSION_PLAN.md`: 강의·세팅과 AI·IT를 통한 선교 지원 실행 계획
 
 ## 도움과 참여
 
