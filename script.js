@@ -1,5 +1,5 @@
 async function loadBoardData() {
-  const response = await fetch("content/site-data.json?v=20260908-2", {
+  const response = await fetch("content/site-data.json?v=20261006-1", {
     cache: "no-store",
   });
   if (!response.ok) {
