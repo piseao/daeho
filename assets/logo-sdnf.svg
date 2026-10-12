@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">So Do Not Fear logo</title>
+  <desc id="desc">A simple circular mark with an abstract path, cross, and rising light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="20" y1="12" x2="106" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#263e30"/>
+      <stop offset="1" stop-color="#5f7747"/>
+    </linearGradient>
+    <linearGradient id="light" x1="33" y1="26" x2="96" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f5f1d0"/>
+      <stop offset="1" stop-color="#d8bf79"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="58" fill="url(#bg)"/>
+  <path d="M31 78c12-26 38-46 66-50-12 12-22 28-29 47-5 14-15 23-31 28 4-7 6-15 6-23-4 0-8-1-12-2Z" fill="url(#light)" opacity=".96"/>
+  <path d="M64 30v56" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"/>
+  <path d="M47 49h34" stroke="#fffaf0" stroke-width="8" stroke-linecap="round"/>
+  <path d="M35 82c19 6 39 3 58-8" fill="none" stroke="#fffaf0" stroke-width="7" stroke-linecap="round" opacity=".84"/>
+</svg>

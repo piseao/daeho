@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Ministry workspace visual</title>
+  <desc id="desc">A calm visual of a worship and technology workspace with instruments, laptop, and warm light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="94" y1="42" x2="1084" y2="660" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef2e5"/>
+      <stop offset="1" stop-color="#d7e1d0"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="260" y1="132" x2="928" y2="586" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eee9dd"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#1d2a20" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" rx="52" fill="url(#bg)"/>
+  <path d="M88 548c160-80 326-82 500-12 164 66 333 66 512-8v192H88V548Z" fill="#cbd8c1" opacity=".5"/>
+  <g filter="url(#shadow)">
+    <rect x="230" y="120" width="740" height="470" rx="42" fill="url(#panel)"/>
+    <rect x="316" y="194" width="360" height="224" rx="28" fill="#22382b"/>
+    <rect x="346" y="226" width="180" height="20" rx="10" fill="#e8efd4"/>
+    <rect x="346" y="270" width="250" height="12" rx="6" fill="#b7c5a6"/>
+    <rect x="346" y="298" width="210" height="12" rx="6" fill="#b7c5a6"/>
+    <rect x="346" y="348" width="112" height="38" rx="19" fill="#d4b36e"/>
+    <path d="M718 200c62 38 100 99 96 168-4 68-48 122-112 150 22-51 21-109-4-174-20-52-14-100 20-144Z" fill="#5f7747"/>
+    <path d="M752 242v214M706 334h92" stroke="#fff9e4" stroke-width="15" stroke-linecap="round" opacity=".92"/>
+    <path d="M430 510c54-70 135-102 242-94-38 31-63 73-77 126-53 13-108 2-165-32Z" fill="#d4b36e"/>
+  </g>
+  <g opacity=".9">
+    <path d="M118 512c24-56 65-94 122-114l46 194c-62-2-118-29-168-80Z" fill="#263e30"/>
+    <path d="M210 404l62 196" stroke="#f5eccd" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="190" cy="525" r="52" fill="none" stroke="#f5eccd" stroke-width="10"/>
+  </g>
+  <g opacity=".9">
+    <rect x="954" y="218" width="138" height="276" rx="30" fill="#fffaf0"/>
+    <rect x="982" y="260" width="78" height="12" rx="6" fill="#5f7747"/>
+    <rect x="982" y="300" width="70" height="10" rx="5" fill="#c3ccb8"/>
+    <rect x="982" y="326" width="86" height="10" rx="5" fill="#c3ccb8"/>
+    <rect x="982" y="384" width="64" height="64" rx="18" fill="#d4b36e"/>
+  </g>
+</svg>

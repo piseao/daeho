@@ -1,5 +1,5 @@
 async function loadBoardData() {
-  const response = await fetch("content/site-data.json?v=20261006-1", {
+  const response = await fetch("content/site-data.json?v=20261012-1", {
     cache: "no-store",
   });
   if (!response.ok) {
@@ -68,5 +68,5 @@ if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-mot
       }
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll(".section-heading, .faith-heading, .feature-panel, .pathway-card, .maker-principles article, .contact-card").forEach((item) => observer.observe(item));
+  document.querySelectorAll(".section-heading, .faith-heading, .feature-panel, .pathway-card, .course-panel, .maker-principles article, .contact-card").forEach((item) => observer.observe(item));
 }

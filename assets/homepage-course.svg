@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">Church homepage course visual</title>
+  <desc id="desc">A polished web illustration showing a laptop, website layout, notes, and warm ministry workspace atmosphere.</desc>
+  <defs>
+    <linearGradient id="paper" x1="100" y1="60" x2="1080" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8f7ef"/>
+      <stop offset="1" stop-color="#dfe8d8"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="320" y1="150" x2="900" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2a4938"/>
+      <stop offset="1" stop-color="#121b16"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="540" y1="240" x2="790" y2="450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f2df9c"/>
+      <stop offset="1" stop-color="#a78649"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#172018" flood-opacity=".20"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="780" rx="56" fill="url(#paper)"/>
+  <circle cx="1010" cy="150" r="120" fill="#d9e4c7" opacity=".55"/>
+  <circle cx="160" cy="630" r="160" fill="#e8dcc5" opacity=".65"/>
+  <g filter="url(#shadow)">
+    <rect x="245" y="130" width="710" height="440" rx="34" fill="#1c2c22"/>
+    <rect x="282" y="166" width="636" height="360" rx="24" fill="url(#screen)"/>
+    <rect x="365" y="232" width="250" height="28" rx="14" fill="#eef4dc" opacity=".92"/>
+    <rect x="365" y="282" width="370" height="16" rx="8" fill="#b8c7a2" opacity=".7"/>
+    <rect x="365" y="315" width="310" height="16" rx="8" fill="#b8c7a2" opacity=".55"/>
+    <rect x="365" y="372" width="146" height="54" rx="27" fill="url(#gold)"/>
+    <rect x="550" y="372" width="146" height="54" rx="27" fill="#ffffff" opacity=".15"/>
+    <rect x="746" y="222" width="96" height="204" rx="48" fill="#dfe8d8" opacity=".18"/>
+    <path d="M790 246v132M750 310h80" stroke="#f7f3d2" stroke-width="12" stroke-linecap="round" opacity=".9"/>
+    <rect x="178" y="570" width="844" height="48" rx="24" fill="#d6d0bf"/>
+    <path d="M376 618h448l78 78H298l78-78Z" fill="#ece7d8"/>
+  </g>
+  <g opacity=".96">
+    <rect x="114" y="198" width="182" height="244" rx="26" fill="#fffaf0"/>
+    <rect x="144" y="240" width="90" height="12" rx="6" fill="#5f7747"/>
+    <rect x="144" y="278" width="122" height="10" rx="5" fill="#c6cdbb"/>
+    <rect x="144" y="306" width="96" height="10" rx="5" fill="#c6cdbb"/>
+    <path d="M153 376c30-42 70-62 116-62-18 22-28 49-33 82-22 6-50 0-83-20Z" fill="#d7bd72"/>
+  </g>
+  <g opacity=".94">
+    <rect x="925" y="430" width="172" height="208" rx="28" fill="#fffaf0"/>
+    <rect x="955" y="474" width="86" height="12" rx="6" fill="#5f7747"/>
+    <rect x="955" y="512" width="112" height="10" rx="5" fill="#c6cdbb"/>
+    <rect x="955" y="540" width="88" height="10" rx="5" fill="#c6cdbb"/>
+    <circle cx="1010" cy="598" r="30" fill="#d7bd72"/>
+  </g>
+</svg>
