@@ -1,5 +1,38 @@
+const siteRoot = new URL(".", document.currentScript.src);
+
+// Keep old, shared section URLs working after the move to separate pages.
+const legacyRoutes = {
+  mission: "about/#mission", faith: "about/#faith", "ai-mission": "about/#ai-mission",
+  worship: "worship/", prayer: "worship/#message", notice: "worship/#notice",
+  "free-homepage": "learn/", faq: "learn/#faq", contact: "contact/",
+  "lecture-contact": "contact/#lecture-contact", "journal-title": "stories/",
+  "pathways-title": "learn/"
+};
+if (document.body.dataset.page === "home") {
+  const route = legacyRoutes[location.hash.slice(1)];
+  if (route) location.replace(new URL(route, siteRoot).href);
+}
+
+const menuButton = document.querySelector(".menu-toggle");
+const siteNav = document.querySelector("#site-nav");
+if (menuButton && siteNav) {
+  document.documentElement.classList.add("has-menu-js");
+  const closeMenu = () => menuButton.setAttribute("aria-expanded", "false");
+  menuButton.addEventListener("click", () => {
+    menuButton.setAttribute("aria-expanded", String(menuButton.getAttribute("aria-expanded") !== "true"));
+  });
+  siteNav.addEventListener("click", (event) => { if (event.target.closest("a")) closeMenu(); });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+      closeMenu(); menuButton.focus();
+    }
+  });
+  document.addEventListener("click", (event) => { if (!event.target.closest(".site-header")) closeMenu(); });
+  window.matchMedia("(min-width: 901px)").addEventListener("change", closeMenu);
+}
+
 async function loadBoardData() {
-  const response = await fetch("content/site-data.json?v=20261012-1", {
+  const response = await fetch(new URL("content/site-data.json?v=20261023", siteRoot), {
     cache: "no-store",
   });
   if (!response.ok) {
@@ -47,7 +80,7 @@ function renderBoards(data) {
   });
 }
 
-loadBoardData()
+if (document.querySelector("[data-board]")) loadBoardData()
   .then(renderBoards)
   .catch((error) => {
     console.error(error);

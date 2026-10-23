@@ -4,7 +4,12 @@ So Do Not Fear 예배팀 홈페이지입니다.
 
 ## 운영 방식
 
-- `index.html`: 홈페이지 구조
+- `index.html`: 메인 소개와 주요 바로가기
+- `about/index.html`: 팀 소개와 신앙고백
+- `worship/index.html`: 예배 안내와 말씀 영상
+- `stories/index.html`: 신앙 이야기와 Notion 칼럼
+- `learn/index.html`: 무료 홈페이지 제작 시작 안내와 매뉴얼
+- `contact/index.html`: 예배 참여·강의 상담
 - `styles.css`: 디자인
 - `script.js`: 게시판 데이터 표시
 - `content/site-data.json`: 기도제목, 공지사항, 스토리 데이터

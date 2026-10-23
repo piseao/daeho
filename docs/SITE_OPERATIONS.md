@@ -164,3 +164,22 @@ git push origin main
 → main에 반영
 → GitHub Pages 실제 화면 확인
 ```
+
+## 페이지 구성 (2026-10-23)
+
+- `index.html`: 메인 소개, 주요 바로가기, 공지, 교육 소개
+- `about/index.html`: 팀 소개, 신앙고백, AI·IT 사역 방향
+- `worship/index.html`: 예배 안내, 말씀 영상, 공지와 기도제목 연결
+- `stories/index.html`: 신앙 이야기와 기존 Notion 칼럼 연결
+- `learn/index.html`: 홈페이지 제작 시작 안내, 매뉴얼, 비용 구분과 FAQ
+- `contact/index.html`: 예배 참여와 강의·제작 상담
+
+모든 페이지는 정적 HTML이며 공통 `styles.css`, `script.js`를 사용합니다.
+상단·하단 메뉴는 각 HTML에 있으므로 메뉴 수정 시 6개 파일을 함께 변경합니다.
+하위 페이지의 공통 파일 경로는 `../`로 시작합니다. 페이지별 제목·설명·canonical과
+`sitemap.xml`도 페이지 주소에 맞게 관리합니다. 기존 메인 앵커 링크는 `script.js`에서
+새 페이지로 연결합니다. 메뉴는 JavaScript가 꺼져 있어도 표시됩니다.
+
+영상 강의는 현재 연결된 강의가 없어 ‘준비 중’으로 표시합니다. 공개 시 실제 영상
+또는 재생목록 링크를 추가하고 상태 문구를 함께 바꿉니다. 문의 버튼은 기존 공통
+Google 폼으로 연결하며 폼 자체의 질문 항목은 이번 변경에서 수정하지 않았습니다.
