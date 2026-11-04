@@ -2,3 +2,30 @@
 @media(max-width:760px){header{top:18px;left:18px;right:18px;gap:8px}.brand{font-size:25px;gap:8px}.brand span{font-size:8px;letter-spacing:1px}.brand small{font-size:8px;letter-spacing:0}.top-actions{gap:6px}.top-actions>a{display:none}.top-actions button{font-size:10px;padding:10px 12px}#help-open{padding:10px 12px}.world-info{left:23px;top:99px;width:200px}h1{font-size:45px;margin:12px 0 8px}.eyebrow{font-size:8px;letter-spacing:1.7px}#world-subtitle{font-size:12px}.small-rule{margin:16px 0}#world-intro{font-size:10px;max-width:190px;line-height:1.8}#world-reference{font-size:9px}#story-steps{margin:17px 0}#story-steps button{font-size:9px;padding:7px 0;gap:8px}#story-steps b{width:20px;height:20px;font-size:8px}.journey-title{display:none}footer{left:16px;right:16px;bottom:22px;height:115px;align-items:flex-start}footer>button{font-size:9px;padding:10px 13px}.bottom-center{bottom:0}#travel-status{font-size:9px;margin-bottom:12px;white-space:nowrap;max-width:300px;overflow:hidden;text-overflow:ellipsis}.action-bar button{font-size:10px;padding:12px 14px}#nearby{bottom:159px;width:80%}#nearby>span{font-size:10px}#read-story{font-size:11px;padding:12px 20px}dialog{padding:29px 24px}dialog h2{font-size:26px}#story-body{font-size:14px}#map{padding:30px 22px}#world-cards{grid-template-columns:repeat(2,1fr);gap:9px}.world-card{padding:14px;min-height:115px}.world-card strong{font-size:20px}.world-card span{font-size:9px}.world-card em{right:9px;font-size:8px}.world-card small{font-size:8px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 #world-intro,#story-body,.dialog-lead{word-break:keep-all}
+/* Bethlehem's optional controls and quiet cinematic presentation. */
+#bethlehem-hud{position:fixed;right:24px;top:110px;z-index:12;display:grid;gap:10px;width:200px}
+#bethlehem-hud details,#village-sound{background:#17232ee8;border:1px solid #ffffff30;border-radius:14px;color:#f7ebd3;padding:12px;font:inherit}
+#village-guide summary{cursor:pointer}
+.village-places{display:grid;gap:6px;margin-top:12px}
+.village-places button{padding:10px;text-align:left;background:#ffffff0d;border:0;border-radius:8px;color:#f7ebd3;font:inherit;cursor:pointer}
+#village-sound{cursor:pointer;font-size:12px}
+#bethlehem-cinema{position:fixed;inset:0;z-index:30;pointer-events:none;background:linear-gradient(#08111b80,transparent 25%,transparent 65%,#08111bd9)}
+#bethlehem-cinema[hidden]{display:none}
+.cinema-top{display:flex;justify-content:space-between;align-items:center;padding:28px;color:#fff2db;font-size:12px}
+.cinema-top button{pointer-events:auto;padding:12px 18px;background:#17232edb;color:#fff2db;border:1px solid #ffffff50;border-radius:30px;cursor:pointer}
+.cinema-caption{position:absolute;bottom:10%;left:10%;right:10%;text-align:center;color:#fff2db;text-shadow:0 2px 8px #000}
+.cinema-caption p{font-size:clamp(18px,2.2vw,28px);line-height:1.6}
+.cinema-caption small{line-height:1.7;display:block}
+.village-cinematic header,.village-cinematic .world-info,.village-cinematic .journey-title,.village-cinematic footer,.village-cinematic #bethlehem-hud{visibility:hidden}
+.discovery-body{line-height:1.9;white-space:pre-line}
+.discovery-ref{opacity:.7}
+
+@media(max-width:700px){#bethlehem-hud{right:12px;top:90px;width:155px;font-size:12px}
+.bethlehem .world-info{max-width:180px;pointer-events:none}
+.bethlehem #world-intro,.bethlehem #story-steps,.bethlehem .world-info .small-rule,.bethlehem #world-reference{display:none}
+.bethlehem .journey-title{display:none}
+.cinema-top{padding:16px;gap:15px;font-size:10px}
+.cinema-caption{bottom:14%;left:7%;right:7%}
+#village-guide[open]{box-shadow:0 10px 40px #0008}
+}
+
