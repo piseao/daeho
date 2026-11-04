@@ -1,4 +1,5 @@
 import * as THREE from '../../walk/vendor/three.module.js';
+import {dressEnvironment} from './environment.js?v=1';
 
 // Bethlehem alone owns these assets, actors and effects. No network assets or API.
 export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, openStory, stopWalking, toast}) {
@@ -10,8 +11,12 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   const houses = [
     [-12,7,5,4,3.6],[-12,-1,4.5,5,4.6],[-13,-10,5.5,4.5,3.1],
     [-5,-6,4,4,3.8],[7,7,4.4,4,3.2],[8,-1,4.5,4.5,4.7],
-    [9,-10,4,4,3.4],[-5,15,4,3.4,2.8]
+    [9,-10,4,4,3.4],[-5,15,4,3.4,2.8],
+    [-17,15,3.6,3.6,3],[-23,7,4.5,4,3.6],[-22,-3,4,4.2,3.2],[-23,-13,4,4,3.7],
+    [-16,-21,5,4,3.4],[-8,-23,4.5,4,3.1],[1,-24,4,3.6,3.3],[10,-22,4.2,4,3.5],
+    [-23,16,3.4,3,2.8],[16,13,4,3.6,3.2],[23,15,4.6,4,3.6],[16,23,3.8,3.6,2.9]
   ];
+  const foundations=[...houses,[0,-14,6,5]];
   function naturalHeight(x,z) {
     return .15 + 2.7*Math.exp(-((x-20)**2+(z+15)**2)/135)
       + 1.2*Math.exp(-((x+16)**2+(z+13)**2)/150)
@@ -19,7 +24,7 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   }
   function heightAt(x,z) {
     let y=naturalHeight(x,z);
-    for(const [hx,hz,w,d] of [...houses,[0,-14,6,5]]) {
+    for(const [hx,hz,w,d] of foundations) {
       const edge=Math.max(Math.abs(x-hx)-w/2,Math.abs(z-hz)-d/2);
       const weight=1-smooth(edge/1.4);
       y=mix(y,naturalHeight(hx,hz),weight);
@@ -50,26 +55,30 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   function walkable(x,z,r=.3){return Math.hypot(x,z)<33 && !obstacles.some(o=>o.rect?
     Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r:Math.hypot(x-o.x,z-o.z)<o.r+r);}
 
-  scene.background=new THREE.Color('#1d2b46');scene.fog=new THREE.Fog('#263950',34,110);
-  ambient.color.set('#bccce3');ambient.groundColor.set('#6e736b');ambient.intensity=1.15;
-  sun.color.set('#bdcff0');sun.intensity=1.15;sun.position.set(-18,30,8);
+  scene.background=new THREE.Color('#17283e');scene.fog=new THREE.Fog('#34475a',46,145);
+  ambient.color.set('#c3d1eb');ambient.groundColor.set('#8a7766');ambient.intensity=.95;
+  sun.color.set('#bdcff0');sun.intensity=1.35;sun.position.set(-18,30,8);
   sun.shadow.mapSize.set(mobile?512:1024,mobile?512:1024);sun.shadow.normalBias=.035;
   const floorGeometry=new THREE.PlaneGeometry(74,74,mobile?64:96,mobile?64:96);
   floorGeometry.rotateX(-Math.PI/2);const vertices=floorGeometry.attributes.position;
   for(let i=0;i<vertices.count;i++)vertices.setY(i,heightAt(vertices.getX(i),vertices.getZ(i)));
   floorGeometry.computeVertexNormals();
-  const floor=new THREE.Mesh(floorGeometry,material('#92958a'));floor.receiveShadow=true;floor.name='bethlehem-terrain';stage.add(floor);
+  const colors=[],groundTint=new THREE.Color();
+  for(let i=0;i<vertices.count;i++){const x=vertices.getX(i),z=vertices.getZ(i);groundTint.set('#a49b83');groundTint.multiplyScalar(.92+.08*Math.sin(x*.23)*Math.cos(z*.31));colors.push(groundTint.r,groundTint.g,groundTint.b);}
+  floorGeometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
+  const groundMaterial=new THREE.MeshStandardMaterial({color:'#ffffff',vertexColors:true,roughness:1});
+  const floor=new THREE.Mesh(floorGeometry,groundMaterial);floor.receiveShadow=true;floor.name='bethlehem-terrain';stage.add(floor);
 
   // Ground-following ribbons establish connected lanes, not isolated decorations.
-  function lane(points,width=2,color='#b5aa92') {
-    const v=[],ix=[];let n=0;
-    for(let p=1;p<points.length;p++){
-      const a=points[p-1],b=points[p],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz),steps=Math.ceil(len*2),nx=-dz/len*width/2,nz=dx/len*width/2;
-      for(let j=0;j<=steps;j++){
-        const t=j/steps,x=mix(a[0],b[0],t),z=mix(a[1],b[1],t);
-        for(const s of [-1,1])v.push(x+nx*s,heightAt(x+nx*s,z+nz*s)+.04,z+nz*s);
-        if(j){const k=n-2;ix.push(k,k+1,n,k+1,n+1,n);}n+=2;
-      }
+  function lane(points,width=2,color='#baaa8a') {
+    const curve=new THREE.CatmullRomCurve3(points.map(([x,z])=>new THREE.Vector3(x,0,z)),false,'centripetal');
+    points=curve.getPoints(Math.max(12,Math.ceil(curve.getLength()*2))).map(p=>[p.x,p.z]);
+    const v=[],ix=[];
+    for(let i=0;i<points.length;i++){
+      const prev=points[Math.max(0,i-1)],next=points[Math.min(points.length-1,i+1)],dx=next[0]-prev[0],dz=next[1]-prev[1],len=Math.hypot(dx,dz)||1;
+      const [x,z]=points[i],edge=width/2*(1+.035*Math.sin(x*2+z*1.3));
+      for(const side of [-1,1]){const px=x-dz/len*edge*side,pz=z+dx/len*edge*side;v.push(px,heightAt(px,pz)+.07,pz);}
+      if(i){const k=(i-1)*2,n=i*2;ix.push(k,k+1,n,k+1,n+1,n);}
     }
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));g.setIndex(ix);g.computeVertexNormals();
     const m=new THREE.Mesh(g,material(color));m.receiveShadow=true;stage.add(m);
@@ -79,6 +88,15 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   lane([[-3,7],[3,4],[13,4],[16,0],[19,-5],[20,-14]],2);
   lane([[-2,-4],[4,-6],[8,-6],[14,-8],[20,-14]],1.6);
   lane([[-3,7],[-12,11]],1.8);lane([[3,4],[7,10]],1.5);
+
+  // Western residential loop and a northern ridge, clear of the eastern pasture.
+  lane([[-12,11],[-17,10],[-18,5],[-17,-2],[-18,-10],[-18,-16],[-16,-18],[-8,-19],[1,-19],[10,-18],[14,-14]],1.8);
+  lane([[-17,10],[-20,12],[-23,12]],1.5);
+  lane([[-17,10],[-17,18],[-23,19]],1.5);
+  lane([[-5,1],[-7,5],[-15,5],[-17,1],[-22,0]],1.5);
+  lane([[-9,-6],[-17,-6],[-23,-10]],1.5);
+  lane([[7,10],[12,10],[12,16],[16,17],[23,18]],1.8);
+  lane([[0,23],[6,25],[12,26],[16,26]],1.8);
 
   function jar(x,z,size=1){const g=group(x,z);part(g,'bowl','#b28a6c',0,.37*size,0,.32*size,.65*size);part(g,'cylinder','#82664e',0,.73*size,0,.17*size,.12*size);circle(x,z,.32*size);}
   function basket(x,z){const g=group(x,z);part(g,'bowl','#a58b62',0,.25,0,.38,.5);part(g,'cylinder','#c1a373',0,.52,0,.4,.06);for(let i=0;i<3;i++)ball(g,'#baaa72',-.19+i*.18,.55,0,.13,.1);circle(x,z,.4);}
@@ -93,11 +111,24 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
       box(g,c,side*(door/2+width/2),h/2,d/2,width,h,wall);rect(x+side*(door/2+width/2),z+d/2,width,wall);
       box(g,'#ddccac',side*(door/2+.12),1.05,d/2+.08,.18,2.1,.42);
       // Window recess, lintel, low stone courses and parapet.
-      box(g,'#665e52',side*w*.32,h*.65,d/2+.17,.55,.7,.035);
+      box(g,'#665e52',side*w*.32,h*.65,d/2+.17,.65,.8,.055);
+      part(g,'box','#ffd894',side*w*.32,h*.65,d/2+.205,.45,.58,.025,true);
+      box(g,palette.wood,side*w*.32,h*.65,d/2+.24,.055,.7,.08);
+      box(g,palette.wood,side*w*.32,h*.65,d/2+.24,.55,.055,.08);
       box(g,'#d9c7a7',side*w*.32,h*.65+.4,d/2+.2,.7,.14,.18);
     }
     box(g,c,0,(h+2.05)/2,d/2,door,h-2.05,wall);
     box(g,'#ab9d81',0,.045,0,w,.06,d);
+    // Open timber door leaves preserve the walkable entrance.
+    for(const side of [-1,1]){
+      const leaf=new THREE.Group();leaf.position.set(side*.82,0,d/2);leaf.rotation.y=side*1.22;g.add(leaf);
+      for(let plank=0;plank<4;plank++)box(leaf,palette.wood,-side*(.1+plank*.17),.95,0,.15,1.84,.075);
+      for(const y of [.35,1.5])box(leaf,'#665e52',-side*.35,y,.055,.7,.08,.05);
+      // Irregular corner stones and a low foundation, shared geometry/materials.
+      for(let row=0;row<Math.floor(h/.48);row++)box(g,row%2?'#a59781':'#ddccac',side*(w/2-.14),.23+row*.47,d/2+.03,row%2?.45:.3,.36,.22);
+      box(g,'#a59781',side*(w/4+.45),.16,d/2+.05,w/2-.95,.3,.32);
+    }
+    for(let beam=0;beam<Math.ceil(w);beam++)box(g,palette.wood,-w/2+.35+beam*.85,h-.08,d/2+.1,.14,.16,.46);
     const roof=group(x,z,movingRoot,g.position.y);box(roof,'#dbccb0',0,h+.12,0,w+.35,.24,d+.35);
     for(const side of [-1,1])box(roof,c,side*w/2,h+.43,0,.2,.5,d+.3);
     box(roof,c,0,h+.43,-d/2,w,.5,.2);roofs.push({root:roof,x,z,w,d});
@@ -112,7 +143,7 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
     lamp(side*1.8,20,1.6);
   }
   const stall=group(-7,10);for(const x of [-1.5,1.5])box(stall,palette.wood,x,1.35,0,.12,2.7,.12);
-  const cloth=box(stall,'#aaa9b5',0,2.65,0,3.6,.08,2.3);cloth.rotation.z=.07;
+  // The shared environment module supplies the animated fabric here.
   rect(-8.5,10,.15,.15);rect(-5.5,10,.15,.15);basket(-7.8,9.4);jar(-6.4,9.4);
   for(const [x,z] of [[-15,10],[10,10],[-15,-5],[11,-6]])basket(x,z);
   // A sheltered, open-front birth space. The exact building is an artistic reconstruction.
@@ -175,15 +206,16 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   }
   for(let i=0;i<(mobile?5:8);i++)flockSheep(16+(i%3)*3,-1-Math.floor(i/3)*2.8,i);
   // Terrain contours and distant silhouettes establish depth without playable clutter.
-  for(const [x,z,s]of [[-20,13,1],[-19,-4,1.1],[13,15,.9],[27,-9,1.1],[18,-20,.8],[-5,-22,1.2],[25,9,.8]]){
+  for(const [x,z,s]of [[-17,5,1],[-19,-15,1.1],[12,18,.9],[27,-9,1.1],[18,-20,.8],[-4,-27,1.2],[25,9,.8]]){
     const g=group(x,z);part(g,'cylinder','#84765f',0,1.1,0,.18,2.2);circle(x,z,.35);
-    const crown=group(x,z,movingRoot);crown.position.y+=2.4;
-    for(let i=0;i<3;i++)ball(crown,['#7d907d','#96a58e','#a2af96'][i],(i-1)*.65,.15*(i%2),0,1*s,.85*s,1*s);
+    for(const side of [-1,1]){const branch=part(g,'cylinder','#84765f',side*.28,1.65,0,.1,1.25);branch.rotation.z=side*-.55;}
+    const crown=group(x,z,movingRoot);crown.position.y+=2.5;
+    for(let i=0;i<(mobile?5:7);i++){const angle=i*2.4,color=['#7d907d','#96a58e','#a2af96'][i%3];material(color).flatShading=false;ball(crown,color,Math.cos(angle)*.7*s,Math.sin(i*1.3)*.25,Math.sin(angle)*.5*s,.85*s,.48*s,.65*s);}
     foliage.push({root:crown,phase:x*.3,baseY:crown.position.y});
   }
   for(let i=0;i<14;i++){
     const a=i/14*Math.PI*2,x=Math.sin(a)*65,z=Math.cos(a)*65,g=group(x,z,staticRoot,-3);
-    part(g,'cone',i%2?'#53677a':'#42556c',0,0,0,13+(i%3)*5,14+(i%4)*4,14);
+    ball(g,i%2?'#53677a':'#42556c',0,0,0,18+(i%3)*5,7+(i%4)*2,16);
   }
   for(let i=0;i<9;i++){const x=-27+i*5,g=group(x,-34,staticRoot,1.1);box(g,'#8e9295',0,1.2,0,2.6,2.4+(i%3),2.5);box(g,'#bbc2bd',.3,1.5,1.27,.18,.25,.02);}
   const moon=new THREE.Mesh(new THREE.SphereGeometry(2.2,12,8),new THREE.MeshBasicMaterial({color:'#dfebef'}));moon.position.set(-27,14,-80);stage.add(moon);
@@ -194,6 +226,8 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   const starMaterial=new THREE.PointsMaterial({color:'#eee5cf',size:.19,transparent:true,opacity:.85,fog:false});stage.add(new THREE.Points(starsGeometry,starMaterial));
   const skyGlow=new THREE.Mesh(new THREE.SphereGeometry(3,12,8),new THREE.MeshBasicMaterial({color:'#fff0cc',transparent:true,opacity:0,depthWrite:false,fog:false}));skyGlow.position.set(19,15,-1);stage.add(skyGlow);
   const revelation=new THREE.PointLight('#fff0d2',0,34,2);revelation.position.copy(skyGlow.position);stage.add(revelation);
+
+  const environment=dressEnvironment({THREE,stage,staticRoot,movingRoot,houses,heightAt,walkable,group,box,ball,part,rect,circle,material,lamp,jar,basket,mobile,reduced});
 
   // Batch repeated static AND animated pieces by geometry/material. Models stay off-scene.
   // Animation updates instance transforms; hundreds of parts do not become hundreds of draw calls.
@@ -206,8 +240,8 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   }
   for(const b of batches.values()){
     b.mesh=new THREE.InstancedMesh(b.geometry,b.material,b.sources.length);b.mesh.castShadow=true;b.mesh.receiveShadow=true;
-    b.mesh.frustumCulled=false;if(b.dynamic)b.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-    b.sources.forEach((s,i)=>b.mesh.setMatrixAt(i,s.node.matrixWorld));stage.add(b.mesh);
+    b.mesh.frustumCulled=!b.dynamic;if(b.dynamic)b.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    b.sources.forEach((s,i)=>b.mesh.setMatrixAt(i,s.node.matrixWorld));if(!b.dynamic)b.mesh.computeBoundingSphere();stage.add(b.mesh);
   }
 
   const places=[
@@ -283,7 +317,7 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
   }
   const scratch=new THREE.Vector3();
   function update(dt,{time,camera,sheep,paused,normalPosition,normalLook}){
-    activeCamera=camera;
+    activeCamera=camera;environment.update(time,camera);
     for(const a of actors){
       let walking=false;
       if(a.route&&!paused){
@@ -334,9 +368,9 @@ export function createBethlehem({stage, scene, ambient, sun, mobile, reduced, op
     if(returning){returning.time+=dt;const blend=reduced?1:smooth(returning.time/1.5);camera.position.lerpVectors(returning.start,normalPosition,blend);scratch.lerpVectors(returning.look,normalLook,blend);camera.lookAt(scratch);
       if(blend>=1){const done=returning;returning=null;if(done.showText)openStory(done.kind==='birth'?1:2);}}
   }
-  function dispose(){disposed=true;document.removeEventListener('keydown',escape);document.removeEventListener('visibilitychange',visibility);hud.remove();cinema.remove();discovery.remove();document.body.classList.remove('village-cinematic');if(audio){audio.wind.stop();audio.context.close().catch(()=>{});} }
-  return {floor,obstacles,heightAt,walkable,places,connectTravel,encounter,update,dispose,
+  function dispose(){disposed=true;environment.dispose();document.removeEventListener('keydown',escape);document.removeEventListener('visibilitychange',visibility);hud.remove();cinema.remove();discovery.remove();document.body.classList.remove('village-cinematic');if(audio){audio.wind.stop();audio.context.close().catch(()=>{});} }
+  return {floor,obstacles,heightAt,walkable,places,entrances:houses.map(([x,z])=>[x,z]),connectTravel,encounter,update,dispose,
     get locked(){return !!cinematic||!!returning;},get nearest(){return nearest;},get actors(){return actors;},
-    spawn:[0,23],camera:{yaw:-.24,pitch:.34,distance:19},
-    stats:()=>({batches:batches.size,actors:actors.length,instances:[...batches.values()].reduce((n,b)=>n+b.sources.length,0)})};
+    spawn:[0,23],camera:{yaw:-.18,pitch:.36,distance:21},
+    stats:()=>({houses:houses.length,environment:environment.stats,batches:batches.size,actors:actors.length,instances:[...batches.values()].reduce((n,b)=>n+b.sources.length,0)})};
 }
