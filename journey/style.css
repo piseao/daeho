@@ -17,3 +17,8 @@
 @media(max-height:500px){#movement-pad{bottom:70px;left:12px}#places-toggle{bottom:75px}.bethlehem #places{bottom:115px;max-height:180px;overflow:auto}#location-label{display:none}.cinema-top{padding:15px 25px}#cinema-subtitle{font-size:15px;margin:5px}#cinema-note{display:none}.cinema-caption{bottom:15px}}
 
 @media(max-height:500px) and (pointer:coarse){footer{height:55px;bottom:14px}#travel-status{display:none}#movement-pad{bottom:80px}#places-toggle{bottom:80px}.world-info .eyebrow{margin:0 0 5px}.world-info #world-subtitle{display:none}.world-info h1{font-size:26px;margin:5px 0}.world-info #story-steps{margin:4px 0}.world-info #story-steps button{padding:2px 0}.world-info #story-steps b{width:18px;height:18px}}
+
+#observe-nearby{position:fixed;z-index:12;bottom:150px;left:50%;transform:translateX(-50%);padding:12px 20px;border:1px solid #d7bd83;border-radius:25px;background:#25313aee;color:#ffeac0;max-width:85vw}#observe-nearby[hidden]{display:none}
+
+@media(max-width:760px),(pointer:coarse){#observe-nearby{bottom:290px;font-size:12px;padding:10px 16px}}
+@media(max-height:500px){#observe-nearby{bottom:90px;max-width:40vw}}
