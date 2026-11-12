@@ -19,7 +19,7 @@ const app=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const routeSource=app.slice(app.indexOf('function route('),app.indexOf('function go('));
 const avatar={position:new THREE.Vector3(...[env.layout.spawn[0],0,env.layout.spawn[1]])};
 const route=new Function('THREE','sheep','canWalk',routeSource+';return route;')(THREE,avatar,walk);
-const targets=[...env.layout.places.map(p=>p.at),...env.layout.stories];let routes=0;
+const targets=[...env.layout.places.map(p=>p.at),...env.layout.stories,[26,-15.5],[26,-20.5]];let routes=0;
 for(const from of [env.layout.spawn,...env.layout.places.map(p=>p.at)]){
  avatar.position.set(from[0],env.height(...from),from[1]);
  for(const to of targets){assert(walk(...to),'destination intersects obstacle');const points=route(...to);assert(points,`No route ${from} -> ${to}`);let previous=avatar.position;
@@ -37,7 +37,7 @@ for(let frame=0;frame<60*90;frame++){
 }
 const ends=inhabitants.stats();const moved=ends.filter((a,i)=>Math.hypot(a.position[0]-starts[i].position[0],a.position[2]-starts[i].position[2])>.15).length;assert(moved>=8,'too many stationary actors');assert(states.has('graze')&&states.has('look')&&states.has('walk')&&states.has('work')&&states.has('sit'));
 assert.equal(ends.filter(a=>['mary','joseph'].includes(a.kind)).length,2);
-assert.equal(env.targets().length,4);
+assert.equal(env.targets().length,5);
 assert(inhabitants.targets().every(t=>!['mary','joseph','jesus'].includes(t.id)));
 for(const target of env.targets()){const p=target.position();assert([p.x,p.y,p.z].every(Number.isFinite));const eye=p.clone().add(new THREE.Vector3(3,2,5));env.constrainView(eye,p);assert(eye.toArray().every(Number.isFinite));}
 const audio=new JourneyAudio();assert.equal(audio.ctx,undefined,'audio must not start before interaction');assert.equal(audio.settings.enabled,false);audio.set('musicVolume',2);assert.equal(audio.settings.musicVolume,1);audio.set('ambienceVolume',-1);assert.equal(audio.settings.ambienceVolume,0);audio.set('narrationVolume',NaN);assert.equal(audio.settings.narrationVolume,0);assert.equal(new JourneyAudio().settings.musicVolume,1);for(const w of worlds)assert(scores[w.id],'missing world score');

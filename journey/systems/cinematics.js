@@ -41,7 +41,7 @@ export class Cinematics {
   this.observationTarget=target;
   const p=target.position(),eye=p.clone().add(new THREE.Vector3(2.8,2,4.5)),look=p.clone().add(new THREE.Vector3(0,.9,0));
   target.interact?.();this.start({id:target.id,title:target.label,duration:9,reference:target.reference,audio:null,
-   shots:[{at:0,eye:eye.toArray(),look:look.toArray()},{at:9,eye:p.clone().add(new THREE.Vector3(-1.2,2.2,4.8)).toArray(),look:look.toArray()}],
+   shots:target.shots||[{at:0,eye:eye.toArray(),look:look.toArray()},{at:9,eye:p.clone().add(new THREE.Vector3(-1.2,2.2,4.8)).toArray(),look:look.toArray()}],
    cues:[{at:0,kind:'생활 관찰',text:target.description}]});
  }
  tick(dt){

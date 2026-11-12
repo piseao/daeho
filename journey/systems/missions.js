@@ -1,0 +1,12 @@
+// Data and durable progress are independent from Three.js and from biblical story progress.
+export const missionDefinitions=[{id:'bethlehem-flock',worldId:'bethlehem',title:'흩어진 양 모으기',description:'흩어진 양 다섯 마리를 목자에게 데려다주세요.',objectives:['잃어버린 양에게 가까이 다가가기','천천히 걸어 목자의 들판으로 유도하기'],target:5,prerequisites:[],completion:'다섯 마리 모두 들판에 도착',worldChange:'목자 곁에 양 떼가 모여 머뭅니다.',nextMission:null,nextStory:2}];
+const KEY='sdnf-adventure-v1';
+export class MissionStore {
+ constructor(storage=globalThis.localStorage,onError=()=>{}){this.storage=storage;this.onError=onError;this.data={missions:{},discoveries:{}};try{const raw=JSON.parse(storage.getItem(KEY)||'{}');for(const def of missionDefinitions){const v=raw?.missions?.[def.id];if(v&&['ACTIVE','COMPLETED','AVAILABLE'].includes(v.state)){const collected=[...new Set((Array.isArray(v.collected)?v.collected:[]).filter(n=>Number.isInteger(n)&&n>=0&&n<def.target))];this.data.missions[def.id]={state:collected.length===def.target?'COMPLETED':v.state==='COMPLETED'?'AVAILABLE':v.state,collected,everCompleted:v.everCompleted===true||collected.length===def.target};}}if(raw?.discoveries&&typeof raw.discoveries==='object')for(const [world,items]of Object.entries(raw.discoveries)){if(Array.isArray(items))this.data.discoveries[world]=[...new Set(items.filter(x=>typeof x==='string'&&x.length<80))].slice(0,50);}}catch{onError();}}
+ status(id){const def=missionDefinitions.find(d=>d.id===id);if(!def)return 'LOCKED';if(def.prerequisites.some(p=>!this.data.missions[p]?.everCompleted))return 'LOCKED';return this.data.missions[id]?.state??'AVAILABLE';}
+ record(id){return this.data.missions[id]??{state:this.status(id),collected:[],everCompleted:false};}
+ save(){try{this.storage.setItem(KEY,JSON.stringify(this.data));return true;}catch{this.onError();return false;}}
+ start(id,replay=false){const state=this.status(id);if(state!=='AVAILABLE'&&!(replay&&state==='COMPLETED'))return false;const previous=this.record(id);this.data.missions[id]={state:'ACTIVE',collected:[],everCompleted:previous.everCompleted};this.save();return true;}
+ deliver(id,index){const def=missionDefinitions.find(d=>d.id===id),r=this.record(id);if(r.state!=='ACTIVE'||!Number.isInteger(index)||index<0||index>=def.target||r.collected.includes(index))return false;r.collected.push(index);if(r.collected.length===def.target){r.state='COMPLETED';r.everCompleted=true;}this.save();return true;}
+ discover(world,id){const a=this.data.discoveries[world]??=[];if(a.includes(id))return false;a.push(id);this.save();return true;}
+}

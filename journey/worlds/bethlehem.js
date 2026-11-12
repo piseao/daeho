@@ -86,7 +86,7 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
     if(index%3===0)jar(x-w*.32,front+.6,.65);
     if(index%2===0)lantern(x+w*.38,front+.4,1.1,10);
   }
-  function lowWall(x,z,w,d,h=.8){const y=groundHeight(x,z);box('#9e8c79',x,y+h/2,z,w,h,d);block(x,z,w,d);}
+  function lowWall(x,z,w,d,h=.8){const y=groundHeight(x,z);box('#9e8c79',x,y+h/2,z,w,h,d);block(x,z,w,d);cameraBlock(new THREE.Box3(new THREE.Vector3(x-w/2,y,z-d/2),new THREE.Vector3(x+w/2,y+h+.1,z+d/2)));}
   function compound(x,z,type,i){
     const h=2.35+(i%4)*.23;
     if(type===0){room(x,z,3.6+(i%2)*.6,3,h,i);lowWall(x-2,z+2,.3,2,.65);jar(x+1.7,z+2,.8);}
@@ -111,7 +111,7 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
     if(type===4){
       lowWall(x-2.6,z,.45,4.5);lowWall(x+2.6,z,.45,4.5);lowWall(x,z-2.1,5.6,.45);
       lowWall(x-1.9,z+2.1,1.5,.45,.65);lowWall(x+1.9,z+2.1,1.5,.45,.65);
-      box('#978464',x,groundHeight(x,z)+1.85,z-1.2,5.2,.14,1.8);
+      box('#978464',x,groundHeight(x,z)+1.85,z-1.2,5.2,.14,1.8);cameraBlock(new THREE.Box3(new THREE.Vector3(x-2.6,groundHeight(x,z)+1.7,z-2.1),new THREE.Vector3(x+2.6,groundHeight(x,z)+2,z-.3)));
       for(const side of [-1,1])box('#776047',x+side*2.35,groundHeight(x,z)+.9,z-.4,.13,1.8,.13);
       box('#a28b67',x,groundHeight(x,z)+.25,z-1.3,1.8,.5,.55);block(x,z-1.3,1.8,.55);
     }
@@ -165,7 +165,11 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
   for(let i=0;i<12;i++){const a=i*Math.PI/6;box('#a6947b',-3+Math.sin(a)*.65,wellPosition.y+.42,18+Math.cos(a)*.65,.38,.84,.32,-a);}
   block(-3,18,1.7,1.7);
   const bucket=new THREE.Mesh(new THREE.CylinderGeometry(.18,.14,.3,12),material('#8f7152'));bucket.position.copy(wellPosition).add(new THREE.Vector3(0,.5,0));stage.add(bucket);let drawWater=0;
-  const observationTargets=[{id:'house',label:'가옥 외관 살펴보기',position:()=>new THREE.Vector3(-7,groundHeight(-7,15.4),15.4),description:'흙빛 벽과 평평한 지붕, 작은 문과 생활 용기를 살펴보세요. 특정 유적을 그대로 복원한 건물이 아닌 추정 재현입니다.'},{id:'well',label:'물 저장 시설 살펴보기',position:()=>wellPosition.clone(),description:'마을의 물 저장 시설을 상상해 재현했습니다. 이 위치와 형태는 고고학적으로 확인된 베들레헴 유적의 복원이 아닙니다.',interact:()=>drawWater=9},
+  // Small storage nook off the market lane and a hand mill: interpretive props.
+  jar(-14.8,9,.65);jar(-15.5,9.2,.8);
+  const millY=groundHeight(-13.2,9.2),mill=new THREE.Mesh(new THREE.CylinderGeometry(.4,.46,.16,20),material('#a59d88'));mill.position.set(-13.2,millY+.22,9.2);stage.add(mill);block(-13.2,9.2,1,1);
+  const millTop=new THREE.Group();millTop.position.set(-13.2,millY+.35,9.2);stage.add(millTop);const upper=new THREE.Mesh(new THREE.CylinderGeometry(.34,.38,.12,20),material('#c2b89f'));millTop.add(upper);const handle=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.24,8),material('#78624a'));handle.position.set(.22,.15,0);millTop.add(handle);let milling=0;
+  const observationTargets=[{id:'mill',label:'맷돌과 저장 용기 살펴보기',position:()=>new THREE.Vector3(-13.2,millY,9.2),description:'곡물을 가는 맷돌과 식량을 담는 용기입니다. 손으로 돌리는 생활 도구를 단순화한 재현이며, 이 장소의 발굴품을 복원한 것은 아닙니다.',interact:()=>milling=9},{id:'house',label:'가옥 외관 살펴보기',position:()=>new THREE.Vector3(-7,groundHeight(-7,15.4),15.4),description:'흙빛 벽과 평평한 지붕, 작은 문과 생활 용기를 살펴보세요. 특정 유적을 그대로 복원한 건물이 아닌 추정 재현입니다.'},{id:'well',label:'물 저장 시설 살펴보기',position:()=>wellPosition.clone(),description:'마을의 물 저장 시설을 상상해 재현했습니다. 이 위치와 형태는 고고학적으로 확인된 베들레헴 유적의 복원이 아닙니다.',interact:()=>drawWater=9},
    {id:'market',label:'시장 생활 도구 살펴보기',position:()=>new THREE.Vector3(-12.7,groundHeight(-12.7,-1),-1),description:'항아리와 낮은 작업대, 그늘을 만드는 천막을 살펴보세요. 장면의 배치와 색은 시각적 재현입니다.'},
    {id:'manger',label:'구유와 강보 살펴보기',position:()=>new THREE.Vector3(0,sy,-20.1),reference:'누가복음 2:6–7 · 공간은 추정 재현',description:'구유와 접힌 천을 통해 성경의 기록을 묵상합니다. 예수님의 직접적인 형상은 표현하지 않았습니다.'}];
   // Hand-shaped fabric: wind deformation stays on the GPU.
@@ -203,6 +207,10 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
   lantern(29,8,.5,18);const fireMesh=new THREE.Mesh(new THREE.ConeGeometry(.25,.65,7),new THREE.MeshBasicMaterial({color:'#e9a95d',transparent:true,opacity:.8}));fireMesh.position.set(29,groundHeight(29,8)+.43,8);stage.add(fireMesh);
   for(let i=0;i<9;i++){const x=27+i*.8,z=-26,y=groundHeight(x,z);box('#a89682',x,y+.45,z,.78,.9,.65);block(x,z,.8,.7);}
   for(const [x,z]of [[-2,13],[2,4],[-2,-5],[2,-13],[23,12],[29,-9],[29,-22]])lantern(x,z,1.9);
+  // A readable narrow passage, reached from a quiet bend rather than a glowing task marker.
+  for(const x of [25.1,26.9]){const z=-18,y=groundHeight(x,z);box('#a99a80',x,y+.55,z,.25,1.1,4.2);block(x,z,.25,4.2);}
+  for(let i=0;i<14;i++){const z=-13-i*.57,x=26+Math.sin(i*.4)*.09;for(const side of [-1,1])part('sphere','#685e52',x+side*.09,groundHeight(x,z)+.05,z,.055,.018,.11);}
+  lantern(26,-20.5,1.3,8);
   // Layered ridgelines and a clear night sky.
   for(let i=0;i<28;i++){const a=i/28*Math.PI*2,r=80+random()*25;part('sphere',i%2?'#374457':'#435064',Math.cos(a)*r,-4,Math.sin(a)*r,18+random()*12,8+random()*9,15,random()*6);}
   const stars=[];for(let i=0;i<600;i++){const a=random()*6.28,r=95+random()*40;stars.push(Math.cos(a)*r,25+random()*95,Math.sin(a)*r);}
@@ -218,7 +226,7 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
   return {floor,height:groundHeight,layout,targets:()=>observationTargets,
     constrainView(eye,look){eye.y=Math.max(eye.y,groundHeight(eye.x,eye.z)+.6);const delta=eye.clone().sub(look),length=delta.length(),ray=new THREE.Ray(look,delta.normalize()),hit=new THREE.Vector3();let allowed=length;cameraSolids.forEach(box=>{if(!box.containsPoint(look)&&ray.intersectBox(box,hit))allowed=Math.min(allowed,look.distanceTo(hit)-.3);});if(allowed<length)eye.copy(look).addScaledVector(delta,Math.max(.6,allowed));},buildingCount:roomCount,compoundCount:homes.length,architectureTypes,
     adjustCamera(position,visitor,dt){
-      const origin=visitor.clone().add(new THREE.Vector3(0,1.5,0)),desired=position.clone(),hit=new THREE.Vector3(),ray=new THREE.Ray();
+      const origin=visitor.clone().add(new THREE.Vector3(0,.9,0)),desired=position.clone(),hit=new THREE.Vector3(),ray=new THREE.Ray();
       const obstructed=()=>{const delta=desired.clone().sub(origin),length=delta.length();ray.set(origin,delta.normalize());return cameraSolids.some(box=>ray.intersectBox(box,hit)&&origin.distanceTo(hit)<length);};
       let lift=0;while(obstructed()&&lift<5.5){desired.y+=1.1;lift+=1.1;}
       cameraLift=lift>cameraLift?lift:THREE.MathUtils.lerp(cameraLift,lift,1-Math.exp(-dt*4));position.y+=cameraLift;
@@ -227,6 +235,7 @@ export function createBethlehem({stage, scene, ambient, sun, obstacles, mobile})
       if(allowed<length){position.copy(origin).addScaledVector(delta,Math.max(.6,allowed));return true;}return false;
     },
     update(time,dt,visitor,reduced,event,eventTime=0){
+      if(milling>0){milling-=dt;if(!reduced)millTop.rotation.y+=dt*.8;}
       drawWater=Math.max(0,drawWater-dt);bucket.position.y=wellPosition.y+.5+(drawWater>0?Math.sin((9-drawWater)/9*Math.PI)*.9:0);
       fireMesh.scale.y=reduced?1:.85+Math.sin(time*7)*.12;const reveal=event==='shepherds'&&eventTime>=7?1:0;revelation.intensity=THREE.MathUtils.lerp(revelation.intensity,reveal*100,1-Math.exp(-dt*.7));heaven.material.opacity=THREE.MathUtils.lerp(heaven.material.opacity,reveal*.85,1-Math.exp(-dt*.7));
       swaying.forEach(u=>u.value=reduced?0:time);
