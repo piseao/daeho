@@ -11,6 +11,35 @@
     "heroAlt": "따뜻한 빛 아래 함께 예배하는 모습을 표현한 이미지",
     "heroLink": "/stories/our-confession/",
     "heroButton": "우리의 이야기 읽기",
+    "slides": [
+      {
+        "label": "EDITOR’S LETTER · 우리의 고백",
+        "title": "두려움이 머무는 날에도,\n우리는 함께 걷습니다.",
+        "summary": "우리는 두려움이 없는 사람들이 아닙니다. 우리의 강함보다 하나님의 은혜를 의지하며, 말씀과 예배로 오늘을 살아갑니다.",
+        "image": "/assets/hero-worship.png",
+        "alt": "따뜻한 빛 아래 함께 예배하는 모습",
+        "button": "우리의 이야기 읽기",
+        "link": "/stories/our-confession/"
+      },
+      {
+        "label": "THE JOURNEY · 성경의 여정",
+        "title": "작은 양과 함께,\n베들레헴의 밤으로.",
+        "summary": "성경의 이야기를 대신하지 않고, 말씀을 직접 펼쳐보고 싶어지는 탐험을 만듭니다.",
+        "image": "/journey/qa/phase3-overlook.png",
+        "alt": "베들레헴 탐험 화면",
+        "button": "성경 여정 시작하기",
+        "link": "/journey/"
+      },
+      {
+        "label": "ROOM TO BREATHE · 쉼의 정원",
+        "title": "잠시 멈추어도,\n여정은 이어집니다.",
+        "summary": "아무것도 증명하지 않아도 되는 시간. 작은 양과 함께 자신의 속도로 걸어보세요.",
+        "image": "/assets/editorial/garden.png",
+        "alt": "함께 거닐다 쉼의 정원 화면",
+        "button": "함께 거닐다",
+        "link": "/walk/"
+      }
+    ],
     "philosophy": "두렵고 떨리지만,\n하나님이 함께하시기에.",
     "philosophyBody": "말씀 앞에서 질문하고, 서로의 곁을 지키며, 받은 은혜를 작은 섬김으로 나눕니다. 화면에서 만난 이야기가 일상으로 이어지기를 바랍니다.",
     "youtube": "https://www.youtube.com/@so.donotfear",
