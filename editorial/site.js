@@ -1,0 +1,9 @@
+const menu=document.querySelector('.menu-toggle');const nav=document.querySelector('#site-nav');
+menu?.addEventListener('click',()=>menu.setAttribute('aria-expanded',String(menu.getAttribute('aria-expanded')!=='true')));
+nav?.addEventListener('click',()=>menu?.setAttribute('aria-expanded','false'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.getAttribute('aria-expanded')==='true'){menu.setAttribute('aria-expanded','false');menu.focus();}});
+const form=document.querySelector('#search'),query=document.querySelector('#story-query');let category='전체';
+function filter(){let n=0;const q=query.value.trim().toLowerCase();document.querySelectorAll('.archive .story-card').forEach(c=>{c.hidden=!(c.dataset.search.includes(q)&&(category==='전체'||c.dataset.category===category));if(!c.hidden)n++;});document.querySelector('#search-count').textContent=`${n}편의 이야기`;document.querySelector('#empty-results').hidden=n>0;}
+if(form){form.addEventListener('submit',e=>{e.preventDefault();filter();});query.addEventListener('input',filter);document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));filter();}));filter();}
+document.querySelector('[data-share]')?.addEventListener('click',async()=>{const status=document.querySelector('#share-status');try{await navigator.clipboard.writeText(location.href);status.textContent=' 주소를 복사했습니다.';}catch{status.textContent=' 주소창에서 이 페이지의 주소를 복사해 주세요.';}});
+const legacy={mission:'/about/#mission',faith:'/about/#faith','ai-mission':'/about/#ai-mission',worship:'/worship/',prayer:'/worship/#message',notice:'/worship/#notice','free-homepage':'/learn/',faq:'/learn/#faq',contact:'/contact/','lecture-contact':'/contact/#lecture-contact'};if(location.pathname==='/'&&legacy[location.hash.slice(1)])location.replace(legacy[location.hash.slice(1)]);

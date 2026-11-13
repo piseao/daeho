@@ -1,0 +1,16 @@
+import {readFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {buildFiles,validate,safeURL,article,prose} from '../editorial/render.mjs';
+import {publish,loadRemote,github} from '../admin/publisher.mjs';
+const data=JSON.parse(await readFile(new URL('../content/editorial.json',import.meta.url),'utf8'));const base='a'.repeat(40),next='b'.repeat(40);
+assert.deepEqual(validate(data),[]);const files=buildFiles(data);assert.ok(files['index.html'].includes('SO DO NOT FEAR'));assert.ok(files['sitemap.xml'].includes('/journey/'));assert.ok(!Object.keys(files).some(p=>p.startsWith('journey/')||p.startsWith('walk/')));
+for(const u of ['javascript:alert(1)','//evil.test','/\\evil.test','data:text/html,<script>','https://user:secret@evil.test','https://test/a\n'])assert.equal(safeURL(u),'');
+const malicious={...data.posts[0],title:'<img src=x onerror=alert(1)>',body:'<script>alert(1)</script>\n\n## <img src=x>'};const out=article(data,malicious);assert.ok(out.includes('&lt;script&gt;'));assert.ok(!out.includes('<img src=x'));assert.ok(prose('## Hello\n\n> World').includes('<blockquote>World'));
+const invalid=structuredClone(data);invalid.posts.push({...invalid.posts[0]});assert.ok(validate(invalid).some(x=>x.includes('주소')));const hidden=structuredClone(data);hidden.posts[0].published=false;assert.equal(buildFiles(hidden,[data.posts[0].slug])[`stories/${data.posts[0].slug}/index.html`],null);
+let calls=[];const api=async(path,args={})=>{calls.push([path,args]);if(path==='git/ref/heads/main')return {object:{sha:base}};if(path.startsWith('contents/'))return {content:Buffer.from(JSON.stringify(data)).toString('base64')};if(path==='git/commits/'+base)return {tree:{sha:'treebase'}};if(path==='git/trees')return {sha:'newtree'};if(path==='git/commits')return {sha:next};if(path==='git/blobs')return {sha:'imageblob'};if(path==='git/refs/heads/main')return {};throw new Error(path);};
+assert.equal((await loadRemote(api)).data.settings.heroTitle,data.settings.heroTitle);calls=[];assert.equal(await publish(api,{data,base,previousSlugs:[],uploads:[{path:'assets/uploads/test.webp',base64:'AAAA'}]}),next);const tree=calls.find(c=>c[0]==='git/trees')[1].body;assert.equal(tree.base_tree,'treebase');assert.ok(tree.tree.some(e=>e.path==='assets/uploads/test.webp'));assert.deepEqual(calls.at(-1)[1].body,{sha:next,force:false});
+let writes=0;await assert.rejects(()=>publish(async(path,args)=>{if(args?.method)writes++;return {object:{sha:'c'.repeat(40)}};},{data,base,previousSlugs:[]}),/다른 수정/);assert.equal(writes,0);
+await assert.rejects(()=>publish(api,{data,base,previousSlugs:[],uploads:[{path:'../walk/app.js',base64:'AAAA'}]}),/업로드/);
+await assert.rejects(()=>github('test',async()=>({ok:false,status:401}))('git/ref/heads/main'),/인증/);
+let finalFailed=false;await assert.rejects(()=>publish(async(path,args)=>{if(path==='git/refs/heads/main'){finalFailed=true;throw new Error('422 conflict');}return api(path,args);},{data,base,previousSlugs:[]}),/conflict/);assert.ok(finalFailed);
+console.log('PASS: rendering, XSS/URL validation, schema, static SEO, hidden article removal, Korean roundtrip, atomic publish, image path boundaries, concurrent edits, expired auth, final ref conflict, walk/journey isolation');
