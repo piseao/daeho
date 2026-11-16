@@ -1,7 +1,7 @@
 import {FileScore} from './file-score.js?v=8';
 // Original procedural score and sound design. No samples, external service or ancient-music claim.
 const KEY='sdnf-journey-audio-v1';
-const DEFAULTS={enabled:false,music:true,muted:false,musicVolume:.32,ambienceVolume:.35,narrationVolume:.8};
+const DEFAULTS={enabled:false,music:true,muted:false,musicVolume:.24,ambienceVolume:.28,narrationVolume:.8};
 export const scores={
  bethlehem:{root:48,tempo:48,notes:[0,7,12,16,14,7,4,12]},
  nazareth:{root:50,tempo:58,notes:[0,4,7,9,7,4,2,7]},
@@ -31,7 +31,7 @@ export class JourneyAudio {
  update(dt,{world,position,moving,cinematic=false,sceneId=null,sceneTime=0}){this.setWorld(world);if(!this.ctx||this.ctx.state!=='running'||!this.settings.enabled||document.hidden)return;const c=this.ctx,t=c.currentTime;let zone='village';if(world==='bethlehem')zone=position.z<-13&&Math.abs(position.x)<7?'birth':position.x>21?'field':position.z>17?'entry':'village';if(cinematic&&sceneId==='birth')zone='birth';if(cinematic&&sceneId==='shepherds')zone=sceneTime>=7?'wonder':'field';this.zone=zone;this.fileScore.setZone(world==='bethlehem'?(zone==='entry'?'village':zone==='village'?'alley':zone):null);
  const s=scores[world]||scores.bethlehem;const speed=60/s.tempo,space=zone==='field'?1.7:1;this.wind.gain.setTargetAtTime(zone==='field'?.055:.025,t,1.5);this.rustle.gain.setTargetAtTime(zone==='field'?.015:.005,t,1.5);const fire=world==='bethlehem'?Math.max(0,1-Math.hypot(position.x-29,position.z-8)/13):0;this.fire.gain.setTargetAtTime(fire*.045,t,.8);
  if(t-this.nextNote>2)this.nextNote=t+.05;
- if(t>=this.nextNote){const n=s.notes[this.beat%s.notes.length]+(zone==='wonder'?12:0),warm=zone==='birth';if(this.settings.music&&!(world==='bethlehem'&&this.fileScore.ready)){this.tone(s.root+12+n,this.nextNote,3.8*space,warm?.023:.018,'sine',Math.sin(this.beat)*.25);if(this.beat%4===0){const chord=this.beat%8===0?0:5;for(const [i,v]of [0,7,12].entries())this.tone(s.root+chord+v,this.nextNote,7,.016,'triangle',(i-1)*.3);}}this.beat++;this.nextNote=t+speed*(zone==='field'?1.5:1);}
+ if(t>=this.nextNote){const n=s.notes[this.beat%s.notes.length]+(zone==='wonder'?12:0),warm=zone==='birth';if(this.settings.music&&!(world==='bethlehem'&&this.fileScore.ready)){this.tone(s.root+12+n,this.nextNote,4.8*space,warm?.016:.012,'sine',Math.sin(this.beat)*.2);if(this.beat%4===0){const chord=this.beat%8===0?0:5;for(const [i,v]of [0,7,12].entries())this.tone(s.root+chord+v,this.nextNote,8,.010,'triangle',(i-1)*.25);}}this.beat++;this.nextNote=t+speed*(zone==='field'?1.5:1);}
  if(moving&&!cinematic&&t-this.lastStep>.42){this.lastStep=t;this.effect('step',.32);}
  if(world==='bethlehem'&&t>this.nextBleat){this.nextBleat=t+12+Math.random()*12;const d=Math.hypot(position.x-28,position.z-5);if(d<22)this.effect('bleat',Math.max(0,1-d/22),(28-position.x)/20);}
  if(fire>.2&&Math.random()<dt*.7)this.effect('crackle',fire);
