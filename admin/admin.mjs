@@ -2,6 +2,8 @@ import {escape as esc,home,archive,article,page,categories,validate,safeImage} f
 import {github,loadRemote,publish} from './publisher.mjs';
 const $=s=>document.querySelector(s),key='sdnf-editor-draft-v1';let data,initial,base=null,originalSlugs=[],uploads=[],api=null,dirty=false,tab='home',selected=0,selectedPage=0,busy=false;
 const status=(message,error=false)=>{$('#status').textContent=message;$('#status').dataset.error=String(error);};
+const historyLink=()=>{if(document.querySelector('[data-publish-history]'))return;const a=document.createElement('a');a.dataset.publishHistory='';a.href='https://github.com/piseao/daeho/commits/main';a.target='_blank';a.rel='noopener noreferrer';a.textContent='발행 이력·복구 지점 보기 ↗';a.style.display='inline-block';a.style.margin='0 0 1rem';$('#status').insertAdjacentElement('afterend',a);};
+historyLink();
 const get=path=>path.split('.').reduce((o,k)=>o?.[k],data);const set=(path,value)=>{const keys=path.split('.'),last=keys.pop();keys.reduce((o,k)=>o[k],data)[last]=value;dirty=true;};
 function field(path,label,{type='text',hint='',rows=5}={}){const v=get(path)??'';const id='f-'+path.replaceAll('.','-');return `<div class="field"><label for="${id}">${esc(label)}</label>${type==='textarea'?`<textarea id="${id}" data-path="${esc(path)}" rows="${rows}">${esc(v)}</textarea>`:`<input id="${id}" data-path="${esc(path)}" type="${type}" value="${esc(v)}">`}${hint?`<small>${esc(hint)}</small>`:''}</div>`;}
 function check(path,label){return `<label class="check"><input type="checkbox" data-path="${esc(path)}" ${get(path)?'checked':''}>${esc(label)}</label>`;}
