@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "worlds": 11,
+  "stories": 33,
+  "architecture": [
+    "단실 주택",
+    "안뜰 주거",
+    "공방 주거",
+    "암반 저장실",
+    "가축 마당"
+  ],
+  "compounds": 20,
+  "roofedRooms": 21,
+  "routes": 48,
+  "simulationSeconds": 90,
+  "actors": 13,
+  "moved": 10,
+  "states": [
+    "pause",
+    "walk",
+    "graze",
+    "look",
+    "sit"
+  ],
+  "minimumActorGap": 0.6992314436948226,
+  "audioProfiles": 11,
+  "scenes": 3
+}

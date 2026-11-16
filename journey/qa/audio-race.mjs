@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {FileScore} from '../systems/file-score.js';
+const sources=[];
+const ctx={currentTime:0,createBufferSource(){const s={connect(){return this},disconnect(){},start(){sources.push(this)},stop(){this.onended?.()}};return s;},createGain(){return {gain:{setValueAtTime(){},linearRampToValueAtTime(){},cancelScheduledValues(){},setTargetAtTime(){}},connect(){},disconnect(){}};}};
+const score=new FileScore(ctx,{}),pending={};score.buffer=id=>pending[id]??=new Promise(resolve=>pending[id+'Resolve']=resolve);
+score.setZone('village');score.setZone('field');score.setZone('village');
+pending.villageResolve({});pending.fieldResolve({});await new Promise(resolve=>setTimeout(resolve,0));
+assert.equal(sources.length,1,'stale zone loads must not start duplicate players');assert.equal(score.stats().playing,'village');assert.equal(score.nodes.size,1);
+score.setZone(null);assert.equal(score.stats().playing,null);assert.equal(score.nodes.size,0);
+console.log('PASS: rapid zone changes ignore stale loads and release sources');
