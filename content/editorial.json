@@ -11,6 +11,32 @@
     "heroAlt": "따뜻한 빛 아래 함께 예배하는 모습을 표현한 이미지",
     "heroLink": "/stories/our-confession/",
     "heroButton": "우리의 이야기 읽기",
+    "nav": [
+      {
+        "label": "이야기",
+        "url": "/stories/"
+      },
+      {
+        "label": "함께 거닐다",
+        "url": "/walk/"
+      },
+      {
+        "label": "예수님의 발자취",
+        "url": "/journey/"
+      },
+      {
+        "label": "예배",
+        "url": "/worship/"
+      },
+      {
+        "label": "배움과 나눔",
+        "url": "/learn/"
+      },
+      {
+        "label": "우리의 고백",
+        "url": "/about/"
+      }
+    ],
     "slides": [
       {
         "label": "EDITOR’S LETTER · 우리의 고백",
