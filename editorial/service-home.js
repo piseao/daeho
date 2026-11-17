@@ -1,0 +1,2 @@
+const result={bright:'메인 화면이 더 밝고 따뜻한 구성으로 바뀌었습니다.',mission:'선교 소식 섹션이 새 페이지로 추가되었습니다.',service:'이번 주 예배 시간이 최신 안내로 업데이트되었습니다.'};
+document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-demo]').forEach(x=>x.classList.toggle('is-selected',x===button));document.querySelector('[data-demo-title]').textContent='홈페이지 미리보기';document.querySelector('[data-demo-result]').textContent=result[button.dataset.demo];}));
