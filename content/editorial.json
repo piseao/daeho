@@ -2,15 +2,15 @@
   "version": 1,
   "settings": {
     "name": "SO DO NOT FEAR",
-    "tagline": "말씀과 예배로, 함께 살아가는 일상",
-    "description": "예수 그리스도의 복음 안에서 두려운 일상을 함께 걷고, 받은 은혜를 나눕니다. 신앙 이야기, 예배, 성경 탐험과 작은 공동체를 위한 배움을 만납니다.",
-    "heroLabel": "EDITOR’S LETTER · 우리의 고백",
-    "heroTitle": "두려움이 머무는 날에도,\n우리는 함께 걷습니다.",
-    "heroSummary": "우리는 두려움이 없는 사람들이 아닙니다. 우리의 강함보다 하나님의 은혜를 의지하며, 말씀과 예배로 오늘을 살아갑니다.",
+    "tagline": "교회가 작성하면, AI가 홈페이지가 됩니다",
+    "description": "예배 소식과 사역 이야기를 작성하면 AI가 교회의 공식 홈페이지 콘텐츠로 정리합니다. 담당자가 확인한 뒤 안전하게 공개합니다.",
+    "heroLabel": "CHURCH MINISTRY AI · 교회 사역 AI",
+    "heroTitle": "교회가 작성하면,\nAI가 홈페이지가 됩니다.",
+    "heroSummary": "예배 공지, 행사 안내, 설교 요약, 기도제목을 남기면 교회의 언어와 구조로 정리합니다.",
     "heroImage": "/assets/hero-worship.png",
     "heroAlt": "따뜻한 빛 아래 함께 예배하는 모습을 표현한 이미지",
-    "heroLink": "/stories/our-confession/",
-    "heroButton": "우리의 이야기 읽기",
+    "heroLink": "/learn/",
+    "heroButton": "작동 방식 보기",
     "nav": [
       {
         "label": "이야기",
@@ -39,13 +39,13 @@
     ],
     "slides": [
       {
-        "label": "EDITOR’S LETTER · 우리의 고백",
-        "title": "두려움이 머무는 날에도,\n우리는 함께 걷습니다.",
-        "summary": "우리는 두려움이 없는 사람들이 아닙니다. 우리의 강함보다 하나님의 은혜를 의지하며, 말씀과 예배로 오늘을 살아갑니다.",
+        "label": "CHURCH MINISTRY AI · 교회 사역 AI",
+        "title": "교회가 작성하면,\nAI가 홈페이지가 됩니다.",
+        "summary": "예배 공지, 행사 안내, 설교 요약, 기도제목을 남기면 교회의 공식 콘텐츠로 정리합니다.",
         "image": "/assets/hero-worship.png",
         "alt": "따뜻한 빛 아래 함께 예배하는 모습",
-        "button": "우리의 이야기 읽기",
-        "link": "/stories/our-confession/"
+        "button": "작동 방식 보기",
+        "link": "/learn/"
       },
       {
         "label": "THE JOURNEY · 성경의 여정",
