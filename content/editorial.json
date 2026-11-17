@@ -2,15 +2,15 @@
   "version": 1,
   "settings": {
     "name": "SO DO NOT FEAR",
-    "tagline": "교회가 작성하면, AI가 홈페이지가 됩니다",
-    "description": "예배 소식과 사역 이야기를 작성하면 AI가 교회의 공식 홈페이지 콘텐츠로 정리합니다. 담당자가 확인한 뒤 안전하게 공개합니다.",
-    "heroLabel": "CHURCH MINISTRY AI · 교회 사역 AI",
-    "heroTitle": "교회가 작성하면,\nAI가 홈페이지가 됩니다.",
-    "heroSummary": "예배 공지, 행사 안내, 설교 요약, 기도제목을 남기면 교회의 언어와 구조로 정리합니다.",
+    "tagline": "교회 홈페이지 제작과 운영을, AI로 더 쉽게",
+    "description": "교회 홈페이지를 만들고 운영하는 일을 돕습니다. 예배 소식과 사역 이야기를 작성하면 AI가 홈페이지 콘텐츠로 정리합니다.",
+    "heroLabel": "CHURCH WEBSITE · 교회 홈페이지 제작",
+    "heroTitle": "교회 홈페이지를,\nAI로 더 쉽게 운영합니다.",
+    "heroSummary": "교회 소개, 예배 안내, 사역 소식과 공지를 한곳에 담고 담당자가 직접 계속 업데이트할 수 있습니다.",
     "heroImage": "/assets/hero-worship.png",
     "heroAlt": "따뜻한 빛 아래 함께 예배하는 모습을 표현한 이미지",
-    "heroLink": "/learn/",
-    "heroButton": "작동 방식 보기",
+    "heroLink": "https://docs.google.com/forms/d/e/1FAIpQLSdL5OIzGbohG_0bcV1JRm3JybSU92y_BXyCkgN1fZR6EkucRw/viewform?usp=header",
+    "heroButton": "교회 홈페이지 제작 신청",
     "nav": [
       {
         "label": "AI 사역 소개",
@@ -27,13 +27,13 @@
     ],
     "slides": [
       {
-        "label": "CHURCH MINISTRY AI · 교회 사역 AI",
-        "title": "교회가 작성하면,\nAI가 홈페이지가 됩니다.",
-        "summary": "예배 공지, 행사 안내, 설교 요약, 기도제목을 남기면 교회의 공식 콘텐츠로 정리합니다.",
+        "label": "CHURCH WEBSITE · 교회 홈페이지 제작",
+        "title": "교회 홈페이지를,\nAI로 더 쉽게 운영합니다.",
+        "summary": "교회 소개, 예배 안내, 사역 소식과 공지를 한곳에 담고 계속 업데이트합니다.",
         "image": "/assets/hero-worship.png",
         "alt": "따뜻한 빛 아래 함께 예배하는 모습",
-        "button": "작동 방식 보기",
-        "link": "/learn/"
+        "button": "교회 홈페이지 제작 신청",
+        "link": "https://docs.google.com/forms/d/e/1FAIpQLSdL5OIzGbohG_0bcV1JRm3JybSU92y_BXyCkgN1fZR6EkucRw/viewform?usp=header"
       },
       {
         "label": "MINISTRY CONTENT · 사역 콘텐츠",
@@ -54,8 +54,8 @@
         "link": "/about/"
       }
     ],
-    "philosophy": "교회가 작성하면,\nAI가 홈페이지로 정리합니다.",
-    "philosophyBody": "예배 일정과 공지, 설교 요약, 기도제목을 평소 말하듯 작성하세요. AI가 홈페이지·주보·카카오톡·SNS에 맞는 초안으로 정리하고, 담당자가 확인한 뒤 공개합니다.",
+    "philosophy": "교회 홈페이지를 만들고,\n사역의 기록을 이어갑니다.",
+    "philosophyBody": "교회 소개와 예배 안내를 먼저 세우고, 예배 일정과 공지·설교 요약·기도제목을 계속 쌓아갑니다. AI는 콘텐츠를 정리하고, 담당자는 사실과 방향을 확인합니다.",
     "youtube": "https://www.youtube.com/@so.donotfear",
     "instagram": "https://www.instagram.com/so.donotfear",
     "prayer": "https://padlet.com/daeho8/so-do-not-fear-s023donra04qx7pzv6gr",
