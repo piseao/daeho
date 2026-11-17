@@ -39,8 +39,8 @@
         "label": "MINISTRY CONTENT · 사역 콘텐츠",
         "title": "한 번 작성하면,\n여러 채널로 이어집니다.",
         "summary": "공지 한 줄을 홈페이지·주보·카카오톡·SNS에 맞는 콘텐츠로 다시 정리합니다.",
-        "image": "/journey/qa/phase3-overlook.png",
-        "alt": "베들레헴 탐험 화면",
+        "image": "/assets/homepage-course.svg",
+        "alt": "교회 홈페이지 콘텐츠를 구성하는 화면",
         "button": "운영 방식 보기",
         "link": "/learn/"
       },
@@ -48,8 +48,8 @@
         "label": "HUMAN APPROVAL · 사람의 승인",
         "title": "AI가 쓰고,\n담당자가 확인합니다.",
         "summary": "AI가 목회적 판단을 대신하지 않습니다. 교회의 언어와 사실을 담당자가 확인한 뒤 공개합니다.",
-        "image": "/assets/editorial/garden.png",
-        "alt": "함께 거닐다 쉼의 정원 화면",
+        "image": "/assets/ministry-workspace.svg",
+        "alt": "교회 사역 콘텐츠를 정리하는 작업 공간",
         "button": "안전 원칙 보기",
         "link": "/about/"
       }
