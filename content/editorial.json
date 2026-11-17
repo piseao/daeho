@@ -13,28 +13,28 @@
     "heroButton": "작동 방식 보기",
     "nav": [
       {
-        "label": "이야기",
-        "url": "/stories/"
+        "label": "AI 사역 소개",
+        "url": "/about/"
       },
       {
-        "label": "함께 거닐다",
-        "url": "/walk/"
-      },
-      {
-        "label": "예수님의 발자취",
-        "url": "/journey/"
-      },
-      {
-        "label": "예배",
-        "url": "/worship/"
-      },
-      {
-        "label": "배움과 나눔",
+        "label": "작동 방식",
         "url": "/learn/"
       },
       {
-        "label": "우리의 고백",
-        "url": "/about/"
+        "label": "사역 콘텐츠",
+        "url": "/stories/"
+      },
+      {
+        "label": "성경의 여정",
+        "url": "/journey/"
+      },
+      {
+        "label": "예배와 공동체",
+        "url": "/worship/"
+      },
+      {
+        "label": "시작하기",
+        "url": "/contact/"
       }
     ],
     "slides": [
