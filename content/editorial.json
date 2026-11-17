@@ -27,14 +27,6 @@
       {
         "label": "성경의 여정",
         "url": "/journey/"
-      },
-      {
-        "label": "예배와 공동체",
-        "url": "/worship/"
-      },
-      {
-        "label": "시작하기",
-        "url": "/contact/"
       }
     ],
     "slides": [
