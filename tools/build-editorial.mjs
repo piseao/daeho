@@ -1,5 +1,6 @@
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { buildFiles } from '../editorial/render.mjs';
+import { magazineHome } from '../editorial/magazine-home.mjs';
 
 const d = JSON.parse(await readFile(new URL('../content/editorial.json', import.meta.url), 'utf8'));
 const homeSchema = {
@@ -42,7 +43,9 @@ const rewrite = (content, path) => {
   return result;
 };
 
-for (const [path, rawContent] of Object.entries(buildFiles(d))) {
+const generated = buildFiles(d);
+generated['index.html'] = magazineHome(d).replace('/editorial/site.css?v=magazine-1', '/editorial/magazine.css?v=1');
+for (const [path, rawContent] of Object.entries(generated)) {
   const url = new URL(`../${path}`, import.meta.url);
   await mkdir(new URL('.', url), { recursive: true });
   await writeFile(url, rewrite(rawContent, path));
