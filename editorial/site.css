@@ -33,5 +33,10 @@ main>.section:has(.experience-grid){display:none}
 .cover-slide{display:none}.cover-slide.is-active{display:grid;grid-template-columns:1fr 1fr;min-height:inherit}.cover-slide.is-active+.cover-slide{display:none}
 @media(max-width:600px){.cover-slide.is-active{display:flex;flex-direction:column}}
 
+/* Living Sense-inspired tone: warm orange editorial accent and clean magazine surfaces. */
+:root{--paper:#fff;--ink:#202020;--muted:#777;--line:#e5e5e5;--accent:#f47721;--orange:#f47721;--serif:Pretendard,'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+ .wordmark{font-size:clamp(25px,3.2vw,46px);letter-spacing:-2px;margin:14px 0 8px}
+body{background:#fff;color:#202020;font-family:Pretendard,'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif}.masthead-top{color:#777}.tagline,.eyebrow{color:var(--orange)}.nav-line{border-color:#e5e5e5}.search-link{border-color:#e5e5e5}.cover{background:#f7f7f7;border:0}.cover-copy{background:#f7f7f7;color:#202020}.cover-copy>.eyebrow,.cover-foot{color:var(--orange)}.cover-copy>p:not(.eyebrow){color:#555}.cover-copy .text-link{border-color:var(--orange);color:#202020}.cover h1{font-weight:700;letter-spacing:-2.5px}.cover-caption{background:var(--orange);color:#fff}.section-head{border-bottom:2px solid #202020}.section-head h2{font-weight:700}.story-card{border:1px solid #e5e5e5}.story-card:hover{box-shadow:0 8px 24px #00000012}.story-card .eyebrow{color:var(--orange)}.manifesto{background:#202020}.manifesto .eyebrow{color:var(--orange)}.learn-banner{background:var(--orange)}.learn-banner .eyebrow{color:#fff}.footer{border-top-color:#e5e5e5}
+
 /* Compact masthead: prioritize the editorial content. */
 .masthead{padding-top:16px}.wordmark{font-size:clamp(30px,4vw,54px);letter-spacing:-2px;margin:16px 0 7px}.tagline{font-size:11px;letter-spacing:1.2px;margin-bottom:18px}.nav-line{min-height:52px}@media(max-width:600px){.masthead{padding-top:13px}.wordmark{font-size:29px;letter-spacing:-1.3px;margin:15px 0 7px}.tagline{font-size:9px;letter-spacing:.6px;margin-bottom:15px}.nav-line{min-height:44px}#site-nav{top:43px}}

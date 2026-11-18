@@ -31,6 +31,9 @@ const rewrite = (content, path) => {
     .replaceAll('읽는 시간을 넘어, 머무는 경험', '실제로 만든 프로젝트')
     .replaceAll('받은 은혜를,<br>작은 섬김으로.', '함께 시작하기')
     .replaceAll('우리 교회가 직접 만들고 운영하는 홈페이지.<br>공개 제작 문서와 예제로 함께 시작합니다.', '공개 자료와 맞춤 지원으로<br>현장에 맞는 기술을 함께 준비합니다.')
+    .replaceAll('우리가 돕는 현장', '오늘의 선교 기술')
+    .replaceAll('모든 이야기', '전체 콘텐츠')
+    .replaceAll('STORIES FOR TODAY', 'MISSION CONTENTS')
     .replace('meta name="theme-color" content="#f8f7f3"', 'meta name="theme-color" content="#1d1d1f"><meta name="robots" content="index,follow"><meta name="author" content="SO DO NOT FEAR"');
   if (path === 'index.html' || path === 'learn/index.html') {
     const schema = path === 'index.html' ? { ...homeSchema, '@graph': homeSchema['@graph'].filter((item) => item['@type'] !== 'FAQPage') } : homeSchema;
