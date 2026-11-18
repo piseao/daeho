@@ -30,6 +30,8 @@ body{background:#fff}.masthead{background:#fff}.masthead-top{font-size:11px}.wor
 
 /* Projects remain available from the menu, but do not compete with the main feed. */
 main>.section:has(.experience-grid){display:none}
+.cover-slide{display:none}.cover-slide.is-active{display:grid;grid-template-columns:1fr 1fr;min-height:inherit}.cover-slide.is-active+.cover-slide{display:none}
+@media(max-width:600px){.cover-slide.is-active{display:flex;flex-direction:column}}
 
 /* Compact masthead: prioritize the editorial content. */
 .masthead{padding-top:16px}.wordmark{font-size:clamp(30px,4vw,54px);letter-spacing:-2px;margin:16px 0 7px}.tagline{font-size:11px;letter-spacing:1.2px;margin-bottom:18px}.nav-line{min-height:52px}@media(max-width:600px){.masthead{padding-top:13px}.wordmark{font-size:29px;letter-spacing:-1.3px;margin:15px 0 7px}.tagline{font-size:9px;letter-spacing:.6px;margin-bottom:15px}.nav-line{min-height:44px}#site-nav{top:43px}}
