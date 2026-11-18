@@ -27,6 +27,10 @@ const rewrite = (content, path) => {
     .replaceAll('© SO DO NOT FEAR · 말씀과 예배로 함께하는 일상', '© SO DO NOT FEAR · AI · IT FOR MISSION')
     .replaceAll('두려운 일상을 함께 걷는 이야기 | So Do Not Fear', '복음의 현장을 위한 기술 | So Do Not Fear')
     .replaceAll('두려운 일상을 함께 걷는 이야기', '복음의 현장을 위한 기술')
+    .replaceAll('오늘, 함께 읽는 이야기', '우리가 돕는 현장')
+    .replaceAll('읽는 시간을 넘어, 머무는 경험', '실제로 만든 프로젝트')
+    .replaceAll('받은 은혜를,<br>작은 섬김으로.', '함께 시작하기')
+    .replaceAll('우리 교회가 직접 만들고 운영하는 홈페이지.<br>공개 제작 문서와 예제로 함께 시작합니다.', '공개 자료와 맞춤 지원으로<br>현장에 맞는 기술을 함께 준비합니다.')
     .replace('meta name="theme-color" content="#f8f7f3"', 'meta name="theme-color" content="#1d1d1f"><meta name="robots" content="index,follow"><meta name="author" content="SO DO NOT FEAR"');
   if (path === 'index.html' || path === 'learn/index.html') {
     const schema = path === 'index.html' ? { ...homeSchema, '@graph': homeSchema['@graph'].filter((item) => item['@type'] !== 'FAQPage') } : homeSchema;
