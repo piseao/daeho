@@ -28,5 +28,8 @@ body{background:#fff}.masthead{background:#fff}.masthead-top{font-size:11px}.wor
 @media(max-width:900px){.story-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.masthead{padding:15px 20px 0}.wordmark{font-size:34px}.cover{margin-top:20px}.cover-photo{min-height:260px}.cover-copy{padding:28px}.cover h1{font-size:38px}.story-grid{grid-template-columns:1fr 1fr;gap:25px 14px}.story-card h3{font-size:16px}.experience-grid{grid-template-columns:1fr}.learn-banner{padding:30px 26px}}
 
+/* Projects remain available from the menu, but do not compete with the main feed. */
+main>.section:has(.experience-grid){display:none}
+
 /* Compact masthead: prioritize the editorial content. */
 .masthead{padding-top:16px}.wordmark{font-size:clamp(30px,4vw,54px);letter-spacing:-2px;margin:16px 0 7px}.tagline{font-size:11px;letter-spacing:1.2px;margin-bottom:18px}.nav-line{min-height:52px}@media(max-width:600px){.masthead{padding-top:13px}.wordmark{font-size:29px;letter-spacing:-1.3px;margin:15px 0 7px}.tagline{font-size:9px;letter-spacing:.6px;margin-bottom:15px}.nav-line{min-height:44px}#site-nav{top:43px}}
