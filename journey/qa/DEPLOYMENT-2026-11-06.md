@@ -11,3 +11,5 @@
 - 주요 인물 최종 모델·실제 음성·실기기 Android/iPhone/Safari 검증은 여전히 미완료.
 
 운영 반영은 GitHub Pages 빌드 성공 및 운영 사이트의 파일·브라우저 로딩을 별도로 확인한다.
+
+배포 완료: `dbd0a09574ac1b237192eba1bf0cd4897c84bd4e`. GitHub Pages built 확인. 운영 사이트에서 새 오디오 버튼, NPC 13개체, 5개 건축 유형 및 리소스 오류 없음 확인. 배포 작업은 `/tmp/daeho-journey-deploy-20261106`에서 최신 원격 브랜치를 기준으로 수행했으며 원래 작업 폴더의 Git 상태를 강제로 변경하지 않았다.
