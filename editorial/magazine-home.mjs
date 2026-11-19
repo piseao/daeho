@@ -4,7 +4,7 @@ function template(d){return `<!doctype html><html lang="ko"><head><meta charset=
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function magazineHome(d){
  const excluded=new Set(['our-confession','we-pray-together','bethlehem-night','a-place-to-rest']);
- const posts=d.posts.filter(p=>p.published&&!excluded.has(p.slug));
+ const posts=columnPosts(d);
  const lead=posts.find(p=>p.slug==='ai-and-it-ministry')||posts[0];
  const rest=posts.filter(p=>p!==lead),picks=rest.filter(p=>p.featured).slice(0,8);
  const latest=rest.filter(p=>!picks.includes(p)).sort((a,b)=>b.date.localeCompare(a.date));
@@ -16,3 +16,4 @@ export function magazineHome(d){
  return template(d).replace(/<main>[\s\S]*?<\/main>/,`<main id="main">${body}</main>`);
 }
 import { STYLESHEET_URL, SCRIPT_URL } from "./assets.mjs";
+import { getCategories, columnPosts, changeCategory, removeCategory } from "./catalog.mjs";
