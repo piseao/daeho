@@ -5,7 +5,7 @@ import {article,archive,validate} from '../editorial/render.mjs';
 const d=JSON.parse(await readFile(new URL('../content/editorial.json',import.meta.url)));
 const visible=new Set(columnPosts(d).map(p=>p.slug));
 for(const p of d.posts){const related=article(d,p).split('class="story-grid related"')[1];for(const m of related.matchAll(/href="\/stories\/([^/]+)\//g))assert.ok(visible.has(m[1]));}
-assert.ok(!archive(d).includes('data-filter="선교 현장"'));
+for(const c of getCategories(d))assert.equal(archive(d).includes(`data-filter="${c}"`),columnPosts(d).some(p=>p.category===c));
 const old=d.posts[0].category;
 changeCategory(d,old,'수정한 분류');assert.equal(d.posts[0].category,'수정한 분류');assert.deepEqual(validate(d),[]);
 changeCategory(d,null,'추가 분류');assert.throws(()=>changeCategory(d,null,'추가 분류'));
