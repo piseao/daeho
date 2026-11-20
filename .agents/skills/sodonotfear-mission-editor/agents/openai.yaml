@@ -1,0 +1,4 @@
+interface:
+  display_name: "SO DO NOT FEAR 선교 글쓰기"
+  short_description: "개혁주의 선교 칼럼과 청년 설교를 사진과 함께 작성하고 게시합니다"
+  default_prompt: "$sodonotfear-mission-editor로 청년 설교 2편을 잔잔한 Unsplash 사진과 함께 칼럼에 게시하고 배포까지 확인해줘."
