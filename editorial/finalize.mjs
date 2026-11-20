@@ -1,43 +1,21 @@
+const ORIGIN='https://sodonotfear.com';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const json=v=>JSON.stringify(v).replace(/</g,'\\u003c');
 export function finalizePage(content,path,d){
-const homeSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    { '@type': 'Organization', '@id': 'https://sodonotfear.com/#organization', name: 'SO DO NOT FEAR', url: 'https://sodonotfear.com/', description: d.settings.description, sameAs: [d.settings.youtube, d.settings.instagram, 'https://github.com/piseao/daeho'] },
-    { '@type': 'WebSite', '@id': 'https://sodonotfear.com/#website', url: 'https://sodonotfear.com/', name: 'SO DO NOT FEAR', publisher: { '@id': 'https://sodonotfear.com/#organization' }, inLanguage: 'ko-KR' },
-    { '@type': 'Service', name: '기독교 선교를 위한 AI·IT 지원', provider: { '@id': 'https://sodonotfear.com/#organization' }, serviceType: ['AI·IT 선교 지원', '교회·선교단체 홈페이지 제작', 'AI 활용 교육과 운영 세팅'], areaServed: '교회와 선교단체', description: '기독교 공동체와 선교 현장이 AI와 디지털 기술을 안전하게 활용하도록 돕는 교육·제작·운영 지원' },
-    { '@type': 'FAQPage', mainEntity: [
-      { '@type': 'Question', name: 'SO DO NOT FEAR는 어떤 단체인가요?', acceptedAnswer: { '@type': 'Answer', text: 'SO DO NOT FEAR는 기독교 공동체와 선교 현장을 AI·IT 기술로 돕는 선교단체입니다.' } },
-      { '@type': 'Question', name: '무엇을 지원하나요?', acceptedAnswer: { '@type': 'Answer', text: '교회·선교단체 홈페이지 제작, AI 활용 교육, 콘텐츠 정리, 번역·자막과 운영 세팅을 지원합니다.' } },
-      { '@type': 'Question', name: '무료로 이용할 수 있나요?', acceptedAnswer: { '@type': 'Answer', text: '공개 문서와 예제는 무료로 제공하며, 맞춤 제작·1:1 교육·원격 세팅은 범위와 비용을 사전에 안내합니다.' } },
-    ] },
-  ],
-};
-
-const rewrite = (content, path) => {
-  if (typeof content !== 'string') return content;
-  let result = content
-    .replaceAll('WORSHIP & LIFE JOURNAL', 'AI · IT FOR MISSION')
-    .replaceAll('함께하기 ↗', '지원 요청 ↗')
-    .replaceAll('예배와 공동체', 'AI·IT 선교')
-    .replaceAll('소개와 신앙고백', '우리가 돕는 일')
-    .replaceAll('예수 그리스도의 복음 안에서,<br>두려운 일상을 함께 걷습니다.', '복음의 현장을 위한 기술을 만듭니다.<br>교회와 선교단체를 AI·IT로 돕습니다.')
-    .replaceAll('© SO DO NOT FEAR · 말씀과 예배로 함께하는 일상', '© SO DO NOT FEAR · AI · IT FOR MISSION')
-    .replaceAll('두려운 일상을 함께 걷는 이야기 | So Do Not Fear', '복음의 현장을 위한 기술 | So Do Not Fear')
-    .replaceAll('두려운 일상을 함께 걷는 이야기', '복음의 현장을 위한 기술')
-    .replaceAll('오늘, 함께 읽는 이야기', '우리가 돕는 현장')
-    .replaceAll('읽는 시간을 넘어, 머무는 경험', '실제로 만든 프로젝트')
-    .replaceAll('받은 은혜를,<br>작은 섬김으로.', '함께 시작하기')
-    .replaceAll('우리 교회가 직접 만들고 운영하는 홈페이지.<br>공개 제작 문서와 예제로 함께 시작합니다.', '공개 자료와 맞춤 지원으로<br>현장에 맞는 기술을 함께 준비합니다.')
-    .replaceAll('우리가 돕는 현장', '오늘의 선교 기술')
-    .replaceAll('모든 이야기', '전체 콘텐츠')
-    .replaceAll('STORIES FOR TODAY', 'MISSION CONTENTS')
-    .replace('meta name="theme-color" content="#f8f7f3"', 'meta name="theme-color" content="#1d1d1f"><meta name="robots" content="index,follow"><meta name="author" content="SO DO NOT FEAR"');
-  if (path === 'index.html' || path === 'learn/index.html') {
-    const schema = path === 'index.html' ? { ...homeSchema, '@graph': homeSchema['@graph'].filter((item) => item['@type'] !== 'FAQPage') } : homeSchema;
-    result = result.replace('</head>', `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script></head>`);
-  }
-  return result;
-};
-
-return rewrite(content,path);
+ if(typeof content!=='string')return content;
+ const url=ORIGIN+'/'+(path==='index.html'?'':path.replace(/index\.html$/,''));
+ const title=content.match(/<title>(.*?)<\/title>/)?.[1];
+ const name=title?.replace(/ \| (?:SO DO NOT FEAR|So Do Not Fear)$/,'');
+ const graph=[{'@type':'Organization','@id':ORIGIN+'/#organization',name:d.settings.name,url:ORIGIN+'/',description:d.settings.description,sameAs:[d.settings.youtube,d.settings.instagram].filter(Boolean)}, {'@type':'WebSite','@id':ORIGIN+'/#website',url:ORIGIN+'/',name:d.settings.name,publisher:{'@id':ORIGIN+'/#organization'},inLanguage:'ko-KR'}, {'@type':'WebPage','@id':url+'#webpage',url,name,isPartOf:{'@id':ORIGIN+'/#website'},about:{'@id':ORIGIN+'/#organization'},inLanguage:'ko-KR'}];
+ if(path!=='index.html')graph.push({'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'SO DO NOT FEAR',item:ORIGIN+'/'},...(path.startsWith('stories/')&&path!=='stories/index.html'?[{'@type':'ListItem',position:2,name:'칼럼',item:ORIGIN+'/stories/'},{'@type':'ListItem',position:3,name,item:url}]:[{'@type':'ListItem',position:2,name,item:url}])]});
+ if(path==='learn/index.html')graph.push({'@type':'Service',name:'교회·선교단체 홈페이지 제작 및 AI 활용 교육',url,provider:{'@id':ORIGIN+'/#organization'},serviceType:['홈페이지 제작','AI 활용 교육','디지털 운영 지원']});
+ // Use the decoded title for JSON-LD, rather than HTML entities.
+ const decode=s=>s?.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+ for(const item of graph){if(item.name)item.name=decode(item.name);if(item.itemListElement)for(const crumb of item.itemListElement)crumb.name=decode(crumb.name);}
+ let tags=`<script type="application/ld+json">${json({'@context':'https://schema.org','@graph':graph})}</script>`;
+ if(!content.includes('name="robots"'))tags+='<meta name="robots" content="index,follow">';
+ if(!content.includes('name="google-site-verification"'))tags+='<meta name="google-site-verification" content="JJe_kR4Po0XtktfA4Ueo1ctwApZzludMs4xIx9BEOnQ">';
+ if(!content.includes('name="naver-site-verification"'))tags+='<meta name="naver-site-verification" content="90a71179b111dd3c55d1baa24fe77d1b9d9706e1">';
+ if(!content.includes('property="og:title"'))tags+=`<meta property="og:title" content="${title}"><meta property="og:description" content="${esc(d.settings.description)}"><meta property="og:url" content="${url}"><meta property="og:type" content="website"><meta property="og:image" content="${esc(new URL(d.settings.heroImage,ORIGIN).href)}"><meta name="twitter:card" content="summary_large_image">`;
+ return content.replace('</head>',tags+'</head>');
 }

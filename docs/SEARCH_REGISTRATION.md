@@ -91,3 +91,40 @@ AEO와 GEO를 위한 별도의 공식 만능 태그는 없다. 검색엔진과 �
 - 글마다 고유 URL, 제목, 검색 설명, 작성일과 Article 구조화 데이터를 둡니다.
 - 개혁주의 신학 관점의 글은 게시 전 목회·신학 검토를 거칩니다.
 - 새 글을 공개한 날짜에만 사이트맵의 `lastmod`를 갱신합니다.
+
+## 디지털 선교 최적화 반영 (2026-11-20)
+
+현재 생성 원본은 `content/editorial.json`과 `editorial/*.mjs`이며 `node tools/build-editorial.mjs`로 HTML과 사이트맵을 생성한다. 대표 가이드는 `editorial/digital-mission.mjs`에서 관리한다. 생성 HTML만 수정하면 다음 발행에서 덮어써진다.
+
+- `/digital-mission/`: 정의·실천 순서·역할·운영 원칙·FAQ·지원 안내와 관련 자료.
+- `/stories/start-digital-mission-small-church/`: 새 시작 안내 글.
+- 기존 홈페이지 아카이브, SNS 연결, AI 활용, 성과 측정 글은 URL과 최초 발행일을 유지하고 실제 수정일을 표시했다.
+- 작성 명의는 기존 글에서 사용하는 SO DO NOT FEAR다. 별도의 실명 작성자나 목회·신학 검토 완료를 주장하지 않는다.
+- 기관 @id는 `https://sodonotfear.com/#organization`으로 통일했다. sameAs는 설정에 등록된 YouTube·Instagram만 사용하며 기관의 법적 지위·파트너·실적을 추가하지 않았다. 채널 소유권은 계정 수준에서 재인증하지 않았다.
+- 본문과 일치하지 않던 FAQPage는 제거했다. 대표 페이지의 FAQ는 사람이 읽는 HTML로 제공한다.
+- 메인에도 Google·네이버 소유권 확인 태그를 복원했다. 태그 존재는 계정 인증 완료나 색인 완료를 뜻하지 않는다.
+- robots.txt는 기존의 전체 공개 허용과 `/admin/` 차단을 유지한다. 별도 에이전트 규칙이 없으므로 Googlebot·Bingbot·OAI-SearchBot에도 전체 규칙이 적용된다. GPTBot 정책은 변경하지 않았다. 호스팅 측 IP별 필터링 여부는 확인하지 않았다.
+
+검증 명령: `node qa/seo.test.mjs`, `node qa/editorial.test.mjs`, `node qa/catalog.test.mjs`.
+
+### 등록과 반영 상태
+
+2026-11-20 공개 사이트 확인 시 홈·robots.txt·sitemap.xml은 응답했고 `/digital-mission/`은 404였다. 이 기록은 구현 전 배포 상태이며 새 페이지의 색인·AI 인용이 확인된 것은 아니다. 기존 작업 폴더의 커밋 차이와 미커밋 변경을 보존하기 위해 별도 checkout의 최신 원격 main을 기준으로 이번 SEO·콘텐츠 변경만 통합했다. 검증 후 main에 반영하고 GitHub Pages에서 새 URL의 200 응답을 확인한다.
+
+배포 후 계정 소유자가 확인할 항목:
+
+1. Google Search Console의 `https://sodonotfear.com/` 속성에서 기존 확인 태그로 소유권을 확인하고 `https://sodonotfear.com/sitemap.xml`을 제출한다. URL 검사로 대표 페이지와 새 글의 색인 가능 여부를 확인한다.
+2. Bing Webmaster Tools에서 소유권을 확인하거나 Search Console 속성을 가져온 뒤 같은 사이트맵을 제출한다. 별도 확인 코드가 발급되면 임의 코드 대신 실제 값을 적용한다.
+3. 네이버 서치어드바이저에서 기존 사이트 소유권과 사이트맵 제출 상태를 확인한다.
+4. 이 작업에서는 각 검색 계정에 접근하거나 사이트맵을 제출하지 않았다. 검색 등록·색인·추천 순위·AI 인용은 별도 상태다.
+
+### 측정 기록
+
+주 1회 또는 월 1회 같은 질문을 확인하고 다음 항목을 기록한다: 확인일, 서비스명·모델, 검색 사용 여부, 질문 원문, 브랜드 언급 여부, 실제 인용 URL, 관련성 메모. 질문은 ‘디지털 선교란 무엇인가요?’, ‘작은 교회는 디지털 선교를 어떻게 시작하나요?’, ‘교회와 선교단체의 디지털 선교를 돕는 곳은 어디인가요?’로 시작할 수 있다. 반복 질문만으로 보편적 추천 확률을 추정하지 않는다.
+
+Search Console의 검색어별 노출·클릭·페이지별 색인과 확인된 문의를 함께 본다. 분석 도구·쿠키·추적 코드는 이번에 추가하지 않았다. 외부 폼의 실제 문의 수는 관리자가 확인하며 개인정보는 공개 기록에 포함하지 않는다.
+
+공식 기술 근거:
+- https://developers.google.com/search/docs/appearance/ai-features
+- https://developers.openai.com/api/docs/bots
+- https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a
